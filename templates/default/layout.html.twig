@@ -2,7 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block head_title_content %}{{ app.name }}{% endblock %}</title>
+        <meta name="description" content="{% block head_meta_description %}{{ app.meta.description }}{% endblock %}" />
+        <meta name="keywords" content="{% block head_meta_keywords %}{{ app.meta.keywords }}{% endblock %}" />
+        <title>{% block head_title_content %}{{ app.meta.title }}{% endblock %}</title>
         <link rel="stylesheet" type="text/css" href="{{ url('main_index') }}css/default.css?{{ app.version }}"/>
     </head>
     <body>

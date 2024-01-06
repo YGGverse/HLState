@@ -5,6 +5,10 @@ twig:
             version: '%app.version%'
             name: '%app.name%'
             theme: '%app.theme%'
+            meta:
+                title: '%env(APP_META_TITLE)%'
+                description: '%env(APP_META_DESCRIPTION)%'
+                keywords: '%env(APP_META_KEYWORDS)%'
 when@test:
     twig:
         strict_variables: true

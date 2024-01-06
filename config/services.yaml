@@ -8,6 +8,9 @@ parameters:
     app.name: '%env(APP_NAME)%'
     app.theme: '%env(APP_THEME)%'
     app.hlservers: '%env(APP_HLSERVERS)%'
+    app.meta.title: '%env(APP_META_TITLE)%'
+    app.meta.description: '%env(APP_META_DESCRIPTION)%'
+    app.meta.keywords: '%env(APP_META_KEYWORDS)%'
 
 services:
     # default configuration for services in *this* file
