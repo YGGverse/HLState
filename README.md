@@ -2,6 +2,8 @@
 
 Web Stats for Half-Life Server
 
+![HLState](https://github.com/YGGverse/HLState/assets/108541346/e8559edf-8429-496e-afbb-752a822cd3d6)
+
 ## Install
 
 * `git clone https://github.com/YGGverse/HLState.git`
