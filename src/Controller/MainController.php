@@ -9,6 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+use App\Entity\Online;
+use Doctrine\ORM\EntityManagerInterface;
+
 class MainController extends AbstractController
 {
     #[Route(
@@ -20,7 +23,8 @@ class MainController extends AbstractController
         ]
     )]
     public function index(
-        ?Request $request
+        ?Request $request,
+        EntityManagerInterface $entityManagerInterface
     ): Response
     {
         // Get HLServers config
@@ -52,15 +56,49 @@ class MainController extends AbstractController
                 {
                     if ($info = (array) $server->GetInfo())
                     {
+                        // Generate CRC32 ID
+                        $crc32server = crc32(
+                            $hlserver->host . ':' . $hlserver->port
+                        );
+
+                        // Get session
+                        $session = empty($info['Players']) ? [] : (array) $server->GetPlayers();
+
+                        // Sort by players by frags
+                        if ($session)
+                        {
+                            array_multisort(
+                                array_column(
+                                    $session,
+                                    'Frags'
+                                ),
+                                SORT_DESC,
+                                $session
+                            );
+                        }
+
+                        // Get online
+                        $online = $entityManagerInterface->getRepository(Online::class)->findBy(
+                            [
+                                'crc32server' => $crc32server
+                            ],
+                            [
+                                'id' => 'DESC' // same as online.time but faster
+                            ],
+                            10
+                        );
+
+                        // Add server
                         $servers[] = [
-                            'host'   => $hlserver->host,
-                            'port'   => $hlserver->port,
-                            'alias'  => $hlserver->alias,
-                            'info'   => $info,
-                            'online' => empty($info['Players']) ? [] : (array) $server->GetPlayers()
+                            'crc32server' => $crc32server,
+                            'host'        => $hlserver->host,
+                            'port'        => $hlserver->port,
+                            'alias'       => $hlserver->alias,
+                            'info'        => $info,
+                            'session'     => $session,
+                            'online'      => $online
                         ];
                     }
-
                 }
             }
 
