@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block head_title_content %}{{ app.name }}{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{{ url('main_index') }}css/default.css?{{ app.version }}"/>
+    </head>
+    <body>
+        {% block header_container %}
+            <header>
+                {% block header_content %}
+                    <div class="text-align-right">
+                        <strong>
+                            {{ app.name }}
+                        </strong>
+                    </div>
+                {% endblock %}
+            </header>
+        {% endblock %}
+        {% block main_container %}
+            <main>
+                {% block main_content %}{% endblock %}
+            </main>
+        {% endblock %}
+        {% block footer_container %}
+            <footer>
+                {% block footer_content %}
+                    <div class="text-align-right">
+                        <small>
+                            {{ 'Powered by' | trans }}
+                            <a href="https://github.com/YGGverse/HLState" target="_blank">HLState</a>
+                        </small>
+                    </div>
+                {% endblock %}
+            </footer>
+        {% endblock %}
+    </body>
+</html>

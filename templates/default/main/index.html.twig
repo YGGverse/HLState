@@ -1,0 +1,57 @@
+{% extends 'default/layout.html.twig' %}
+{% block main_content %}
+    {% for server in servers %}
+        <div class="border-default padding-8-px margin-y-8-px">
+            <h2>{{ server.info.HostName }}</h2>
+            <hr />
+            <h3 class="padding-y-8-px text-align-right">{{ 'Address' | trans }}</h3>
+            <div>
+                {{ server.host }}:{{ server.port }}
+            </div>
+            {% if server.alias %}
+                <h3 class="padding-y-8-px text-align-right">{{ 'Aliases' | trans }}</h3>
+                {% for alias in server.alias %}
+                    <div>
+                        {{ alias.host }}:{{ alias.port }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if server.info %}
+                <h3 class="padding-y-8-px text-align-right">{{ 'Info' | trans }}</h3>
+                <table>
+                    {% for key, value in server.info %}
+                        <tr>
+                            <td class="text-align-left">{{ key }}</td>
+                            <td class="text-align-left">{{ value }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            {% if server.online %}
+                <h3 class="padding-y-8-px text-align-right">{{ 'Online' | trans }}</h3>
+                <table>
+                    <tr>
+                        <th class="text-align-left">{{ 'Name' | trans }}</th>
+                        <th class="text-align-center">{{ 'Frags' | trans }}</th>
+                        <th class="text-align-center">{{ 'Time' | trans }}</th>
+                    </tr>
+                    {% for player in server.online %}
+                        <tr>
+                            <td class="text-align-left">{{ player.Name }}</td>
+                            <td class="text-align-center">{{ player.Frags }}</td>
+                            <td class="text-align-center">
+                                {% if player.TimeF == '59:59' %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916z"/>
+                                    </svg>
+                                {% else %}
+                                    {{ player.TimeF }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,124 @@
+*
+{
+    /* apply defaults */
+    margin: 0;
+    padding: 0;
+
+    /* allow draw */
+    font-family: monospace;
+
+    /* adaptive */
+    color-scheme: light dark;
+
+    /* vars */
+    --container-max-width: 768px;
+    --color-warning: #ee784e;
+    --color-error: #ff6363;
+    --color-default: #999;
+}
+
+*::placeholder
+{
+    font-size: 12px;
+}
+
+hr {
+    background-color: var(--color-default);
+    border: none;
+    color: var(--color-default);
+    height: 1px;
+    margin: 8px 0;
+}
+
+h1
+{
+    font-size: 16px;
+}
+
+h2
+{
+    font-size: 14px;
+}
+
+h3
+{
+    font-size: 13px;
+}
+
+a, a:active, a:visited
+{
+    color: var(--color-warning);
+}
+
+table
+{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--color-default);
+}
+
+table th,
+table td
+{
+    border: 1px solid var(--color-default);
+    padding: 4px;
+}
+
+header
+{
+    display: block;
+    margin: 16px auto;
+    max-width: var(--container-max-width);
+}
+
+main
+{
+    display: block;
+    margin: 16px auto;
+    max-width: var(--container-max-width);
+}
+
+footer
+{
+    display: block;
+    margin: 16px auto;
+    max-width: var(--container-max-width);
+}
+
+/* framework */
+.text-align-left
+{
+    text-align: left;
+}
+
+.text-align-center
+{
+    text-align: center;
+}
+
+.text-align-right
+{
+    text-align: right;
+}
+
+.border-default
+{
+    border: 1px var(--color-default) solid;
+}
+
+.padding-8-px
+{
+    padding: 8px;
+}
+
+.padding-y-8-px
+{
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.margin-y-8-px
+{
+    margin-bottom: 8px;
+    margin-top: 8px;
+}

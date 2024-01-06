@@ -6,9 +6,8 @@
 parameters:
     app.version: '%env(APP_VERSION)%'
     app.name: '%env(APP_NAME)%'
-    app.server.host: '%env(APP_SERVER_HOST)%'
-    app.server.port: '%env(APP_SERVER_PORT)%'
-    app.server.timeout: '%env(APP_SERVER_TIMEOUT)%'
+    app.theme: '%env(APP_THEME)%'
+    app.hlservers: '%env(APP_HLSERVERS)%'
 
 services:
     # default configuration for services in *this* file
