@@ -44,6 +44,6 @@ Web Stats for Half-Life Server
 
 ## See also
 
-* [HLServers - Half-Life Servers Registry for HLState](https://github.com/YGGverse/HLServers)
-* [half-life-server - Half-Life server edition by YGGverse](https://github.com/YGGverse/half-life-server)
-* [pymaster - Refactored master server written in Python](https://github.com/YGGverse/pymaster)
+* [HLServers](https://github.com/YGGverse/HLServers) - Half-Life Servers Registry for HLState
+* [half-life-server](https://github.com/YGGverse/half-life-server) - Half-Life server edition by YGGverse
+* [pymaster](https://github.com/YGGverse/pymaster) - Refactored master server written in Python
