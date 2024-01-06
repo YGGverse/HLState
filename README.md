@@ -12,8 +12,7 @@ Web Stats for Half-Life Server
 
 * `cp .env .env.local`
 * `php bin/console doctrine:database:create`
-* `crontab -e`
-  + `* * * * * /usr/bin/curl --silent http://address/crontab/online &> /dev/null`
+* `crontab -e` > `* * * * * /usr/bin/curl --silent http://address/crontab/online &> /dev/null`
 
 ## Update
 
