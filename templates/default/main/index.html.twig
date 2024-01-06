@@ -7,12 +7,38 @@
             <h3 class="padding-y-8-px text-align-right">{{ 'Address' | trans }}</h3>
             <div>
                 {{ server.host }}:{{ server.port }}
+                {% if server.status %}
+                    <span class="color-success" title="{{ 'online' | trans }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                        </svg>
+                    </span>
+                {% else %}
+                    <span class="color-error" title="{{ 'offline' | trans }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                        </svg>
+                    </span>
+                {% endif %}
             </div>
-            {% if server.alias %}
+            {% if server.aliases %}
                 <h3 class="padding-y-8-px text-align-right">{{ 'Aliases' | trans }}</h3>
-                {% for alias in server.alias %}
+                {% for alias in server.aliases %}
                     <div>
                         {{ alias.host }}:{{ alias.port }}
+                        {% if alias.status %}
+                            <span class="color-success" title="{{ 'online' | trans }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                                </svg>
+                            </span>
+                        {% else %}
+                            <span class="color-error" title="{{ 'offline' | trans }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
+                                </svg>
+                            </span>
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% endif %}

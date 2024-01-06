@@ -43,6 +43,36 @@ class MainController extends AbstractController
 
         foreach ($hlservers as $hlserver)
         {
+            // Init defaults
+            $info    = [];
+            $session = [];
+            $online  = [];
+
+            // Generate CRC32 ID
+            $crc32server = crc32(
+                $hlserver->host . ':' . $hlserver->port
+            );
+
+            // Prepare aliases
+            $aliases = [];
+
+            foreach ($hlserver->alias as $value)
+            {
+                $alias = new \xPaw\SourceQuery\SourceQuery();
+
+                $alias->Connect(
+                    $value->host,
+                    $value->port
+                );
+
+                $aliases[] = [
+                    'host'   => $value->host,
+                    'port'   => $value->port,
+                    'status' => $alias->Ping()
+                ];
+            }
+
+            // Request server info
             try
             {
                 $server = new \xPaw\SourceQuery\SourceQuery();
@@ -56,11 +86,6 @@ class MainController extends AbstractController
                 {
                     if ($info = (array) $server->GetInfo())
                     {
-                        // Generate CRC32 ID
-                        $crc32server = crc32(
-                            $hlserver->host . ':' . $hlserver->port
-                        );
-
                         // Get session
                         $session = empty($info['Players']) ? [] : (array) $server->GetPlayers();
 
@@ -87,18 +112,14 @@ class MainController extends AbstractController
                             ],
                             10
                         );
-
-                        // Add server
-                        $servers[] = [
-                            'crc32server' => $crc32server,
-                            'host'        => $hlserver->host,
-                            'port'        => $hlserver->port,
-                            'alias'       => $hlserver->alias,
-                            'info'        => $info,
-                            'session'     => $session,
-                            'online'      => $online
-                        ];
                     }
+
+                    $status = true;
+                }
+
+                else
+                {
+                    $status = false;
                 }
             }
 
@@ -111,6 +132,18 @@ class MainController extends AbstractController
             {
                 $server->Disconnect();
             }
+
+            // Add server
+            $servers[] = [
+                'crc32server' => $crc32server,
+                'host'        => $hlserver->host,
+                'port'        => $hlserver->port,
+                'aliases'     => $aliases,
+                'info'        => $info,
+                'session'     => $session,
+                'online'      => $online,
+                'status'      => $status
+            ];
         }
 
         return $this->render(

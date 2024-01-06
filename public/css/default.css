@@ -12,6 +12,7 @@
 
     /* vars */
     --container-max-width: 768px;
+    --color-success: #4bc432;
     --color-warning: #ee784e;
     --color-error: #ff6363;
     --color-default: #999;
@@ -86,6 +87,53 @@ footer
 }
 
 /* framework */
+.cursor-default
+{
+    cursor: default;
+}
+
+.cursor-pointer
+{
+    cursor: pointer;
+}
+
+.cursor-help
+{
+    cursor: help;
+}
+
+.color-success,
+a.color-success,
+a.color-success:active,
+a.color-success:visited
+{
+    color: var(--color-success);
+}
+
+.color-warning,
+a.color-warning,
+a.color-warning:active,
+a.color-warning:visited
+{
+    color: var(--color-warning);
+}
+
+.color-error,
+a.color-error,
+a.color-error:active,
+a.color-error:visited
+{
+    color: var(--color-error);
+}
+
+.color-default,
+a.color-default,
+a.color-default:active,
+a.color-default:visited
+{
+    color: var(--color-default);
+}
+
 .text-align-left
 {
     text-align: left;
