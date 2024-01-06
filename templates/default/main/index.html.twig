@@ -2,7 +2,11 @@
 {% block main_content %}
     {% for server in servers %}
         <div class="border-default padding-8-px margin-y-8-px">
-            <h2>{{ server.info.HostName }}</h2>
+            {% if server.info.HostName %}
+                <h2>{{ server.info.HostName }} [#{{ server.crc32server }}]</h2>
+            {% else %}
+                <h2>#{{ server.crc32server }}</h2>
+            {% endif %}
             <hr />
             <h3 class="padding-y-8-px text-align-right">{{ 'Address' | trans }}</h3>
             <div>
