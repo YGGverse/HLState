@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Online;
+use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 
 class MainController extends AbstractController
@@ -28,7 +29,12 @@ class MainController extends AbstractController
     ): Response
     {
         // Prepare request
-        if (in_array($request->get('field'), ['time','players','bots','total']))
+        if ('online' == $request->get('sort') && in_array($request->get('field'), ['time','players','bots','total']))
+        {
+            $field = $request->get('field');
+        }
+
+        else if ('players' == $request->get('sort') && in_array($request->get('field'), ['name','frags','joined','online']))
         {
             $field = $request->get('field');
         }
@@ -68,6 +74,7 @@ class MainController extends AbstractController
             $info    = [];
             $session = [];
             $online  = [];
+            $players = [];
 
             // Generate CRC32 ID
             $crc32server = crc32(
@@ -128,7 +135,16 @@ class MainController extends AbstractController
                             [
                                 'crc32server' => $crc32server
                             ],
-                            'online' == $request->get('sort') && $crc32server == $request->get('crc32server') ? [$field => $order] : ['id' => 'DESC'],
+                            'online' == $request->get('sort') && $crc32server == $request->get('crc32server') ? [$field => $order] : ['time' => 'DESC'],
+                            10
+                        );
+
+                        // Get players
+                        $players = $entityManagerInterface->getRepository(Player::class)->findBy(
+                            [
+                                'crc32server' => $crc32server
+                            ],
+                            'players' == $request->get('sort') && $crc32server == $request->get('crc32server') ? [$field => $order] : ['frags' => 'DESC'],
                             10
                         );
                     }
@@ -161,6 +177,7 @@ class MainController extends AbstractController
                 'info'        => $info,
                 'session'     => $session,
                 'online'      => $online,
+                'players'     => $players,
                 'status'      => $status
             ];
         }
