@@ -16,7 +16,7 @@ Web Monitor for Half-Life based on [HLServers](https://github.com/YGGverse/HLSer
 
 * `chown -R www-data:www-data var`
 * `cp .env .env.local`
-* `crontab -e` > `* * * * * /usr/bin/curl --silent http://localhost/crontab/online &> /dev/null`
+* `crontab -e` > `* * * * * /usr/bin/curl --silent http://localhost/crontab/index &> /dev/null`
 
 ## Update
 

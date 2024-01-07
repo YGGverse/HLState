@@ -10,19 +10,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Online;
+use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CrontabController extends AbstractController
 {
     #[Route(
-        '/crontab/online',
-        name: 'crontab_online',
+        '/crontab/index',
+        name: 'crontab_index',
         methods:
         [
             'GET'
         ]
     )]
-    public function online(
+    public function index(
         ?Request $request,
         EntityManagerInterface $entityManagerInterface
     ): Response
@@ -62,14 +63,14 @@ class CrontabController extends AbstractController
                         $total   = $players + $bots;
 
                         // Generate CRC32 server ID
-                        $crc32Server = crc32(
+                        $crc32server = crc32(
                             $hlserver->host . ':' . $hlserver->port
                         );
 
                         // Get last online value
                         $online = $entityManagerInterface->getRepository(Online::class)->findOneBy(
                             [
-                                'crc32server' => $crc32Server
+                                'crc32server' => $crc32server
                             ],
                             [
                                 'id' => 'DESC' // same as online.time but faster
@@ -82,16 +83,16 @@ class CrontabController extends AbstractController
                             is_null($online)
                             ||
                             $players !== $online->getPlayers()
-                            ||
-                            $bots !== $online->getBots()
-                            ||
-                            $total !== $online->getTotal()
+                            // ||
+                            // $bots !== $online->getBots()
+                            // ||
+                            // $total !== $online->getTotal()
                         )
                         {
                             $online = new Online();
 
                             $online->setCrc32server(
-                                $crc32Server
+                                $crc32server
                             );
 
                             $online->setTime(
@@ -115,6 +116,104 @@ class CrontabController extends AbstractController
                             );
 
                             $entityManagerInterface->flush();
+                        }
+
+                        // Update player stats
+                        if ($players)
+                        {
+                            foreach ((array) $server->GetPlayers() as $session)
+                            {
+                                // Validate fields
+                                if
+                                (
+                                    !isset($session['Name']) || mb_strlen($session['Name']) > 255
+                                    ||
+                                    !isset($session['TimeF']) || (int) $session['TimeF'] < 0
+                                    ||
+                                    !isset($session['Frags']) || (int) $session['Frags'] < 0
+                                )
+                                {
+                                    continue;
+                                }
+
+                                // Skip bots
+                                if ($session['TimeF'] == '59:59')
+                                {
+                                    continue;
+                                }
+
+                                // Generate CRC32 server ID
+                                $crc32name = crc32(
+                                    $session['Name']
+                                );
+
+                                $player = $entityManagerInterface->getRepository(Player::class)->findOneBy(
+                                    [
+                                        'crc32server' => $crc32server,
+                                        'crc32name'   => $crc32name,
+                                    ]
+                                );
+
+                                // Player exists
+                                if ($player)
+                                {
+                                    $player->setUpdated(
+                                        time()
+                                    );
+
+                                    $player->setOnline(
+                                        time()
+                                    );
+
+                                    if ((int) $session['Frags'] > $player->getFrags())
+                                    {
+                                        $player->setFrags(
+                                            (int) $session['Frags']
+                                        );
+                                    }
+                                }
+
+                                // Create new player
+                                else
+                                {
+                                    $player = new Player();
+
+                                    $player->setCrc32server(
+                                        $crc32server
+                                    );
+
+                                    $player->setCrc32name(
+                                        $crc32name
+                                    );
+
+                                    $player->setJoined(
+                                        time()
+                                    );
+
+                                    $player->setUpdated(
+                                        time()
+                                    );
+
+                                    $player->setOnline(
+                                        time()
+                                    );
+
+                                    $player->setName(
+                                        (string) $session['Name']
+                                    );
+
+                                    $player->setFrags(
+                                        (int) $session['Frags']
+                                    );
+                                }
+
+                                // Update DB
+                                $entityManagerInterface->persist(
+                                    $player
+                                );
+
+                                $entityManagerInterface->flush();
+                            }
                         }
                     }
                 }
