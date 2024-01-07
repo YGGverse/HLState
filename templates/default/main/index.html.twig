@@ -1,3 +1,45 @@
+{% macro sort(request, crc32server, sort, field) %}
+    {% if sort == request.get('sort') and crc32server == request.get('crc32server') %}
+        {% if field == request.get('field') %}
+            {% if 'asc' == request.get('order') %}
+                <a href="{{ path('main_index', { sort : sort, field : field, order : 'desc', crc32server : crc32server, '_fragment' : 'online-%d' | format(crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
+                </svg></a>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
+                </svg>
+            {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
+                </svg>
+                <a href="{{ path('main_index', { sort : sort, field : field, order : 'asc', crc32server : crc32server, '_fragment' : 'online-%d' | format(crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
+                </svg></a>
+            {% endif %}
+        {% else %}
+            <a href="{{ path('main_index', { sort : sort, field : field, order : 'desc', crc32server : crc32server, '_fragment' : 'online-%d' | format(crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
+            </svg></a>
+            <a href="{{ path('main_index', { sort : sort, field : field, order : 'asc', crc32server : crc32server, '_fragment' : 'online-%d' | format(crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
+            </svg></a>
+        {% endif %}
+    {% else %}
+        {% if 'time' == field %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
+            </svg>
+        {% else %}
+            <a href="{{ path('main_index', { sort : sort, field : field, order : 'desc', crc32server : crc32server, '_fragment' : 'online-%d' | format(crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
+            </svg></a>
+        {% endif %}
+        <a href="{{ path('main_index', { sort : sort, field : field, order : 'asc', crc32server : crc32server, '_fragment' : 'online-%d' | format(crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
+            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
+        </svg></a>
+    {% endif %}
+{% endmacro %}
+{% from _self import sort %}
 {% extends 'default/layout.html.twig' %}
 {% block main_content %}
     {% for server in servers %}
@@ -12,13 +54,13 @@
             <div>
                 {{ server.host }}:{{ server.port }}
                 {% if server.status %}
-                    <span class="color-success" title="{{ 'online' | trans }}">
+                    <span class="color-success" title="{{ 'Online' | trans }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
                         </svg>
                     </span>
                 {% else %}
-                    <span class="color-error" title="{{ 'offline' | trans }}">
+                    <span class="color-error" title="{{ 'Offline' | trans }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
                         </svg>
@@ -31,13 +73,13 @@
                     <div>
                         {{ alias.host }}:{{ alias.port }}
                         {% if alias.status %}
-                            <span class="color-success" title="{{ 'online' | trans }}">
+                            <span class="color-success" title="{{ 'Online' | trans }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
                                 </svg>
                             </span>
                         {% else %}
-                            <span class="color-error" title="{{ 'offline' | trans }}">
+                            <span class="color-error" title="{{ 'Offline' | trans }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
                                 </svg>
@@ -83,6 +125,7 @@
                 </table>
             {% endif %}
             {% if server.online %}
+                <a name="{{ 'online-%d' | format(server.crc32server) }}"></a>
                 <h3 class="padding-y-8-px text-align-right">
                     {{ 'Online' | trans }}
                     <a href="{{ path('rss_online', { crc32server : server.crc32server }) }}" title="{{ 'RSS' | trans }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
@@ -91,10 +134,18 @@
                 </h3>
                 <table>
                     <tr>
-                        <th class="text-align-left">{{ 'Time' | trans }}</th>
-                        <th class="text-align-center">{{ 'Players' | trans }}</th>
-                        <th class="text-align-center">{{ 'Bots' | trans }}</th>
-                        <th class="text-align-center">{{ 'Total' | trans }}</th>
+                        <th class="text-align-left">
+                            {{ 'Time' | trans }} {{ sort(request, server.crc32server, 'online', 'time') }}
+                        </th>
+                        <th class="text-align-center">
+                            {{ 'Players' | trans }} {{ sort(request, server.crc32server, 'online', 'players') }}
+                        </th>
+                        <th class="text-align-center">
+                            {{ 'Bots' | trans }} {{ sort(request, server.crc32server, 'online', 'bots') }}
+                        </th>
+                        <th class="text-align-center">
+                            {{ 'Total' | trans }} {{ sort(request, server.crc32server, 'online', 'total') }}
+                        </th>
                     </tr>
                     {% for online in server.online %}
                         <tr>

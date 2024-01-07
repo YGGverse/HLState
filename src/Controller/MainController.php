@@ -27,6 +27,27 @@ class MainController extends AbstractController
         EntityManagerInterface $entityManagerInterface
     ): Response
     {
+        // Prepare request
+        if (in_array($request->get('field'), ['time','players','bots','total']))
+        {
+            $field = $request->get('field');
+        }
+
+        else
+        {
+            $field = 'time';
+        }
+
+        if (in_array($request->get('order'), ['asc','desc']))
+        {
+            $order = $request->get('order');
+        }
+
+        else
+        {
+            $order = 'desc';
+        }
+
         // Get HLServers config
         if ($hlservers = file_get_contents($this->getParameter('app.hlservers')))
         {
@@ -107,9 +128,7 @@ class MainController extends AbstractController
                             [
                                 'crc32server' => $crc32server
                             ],
-                            [
-                                'id' => 'DESC' // same as online.time but faster
-                            ],
+                            'online' == $request->get('sort') && $crc32server == $request->get('crc32server') ? [$field => $order] : ['id' => 'DESC'],
                             10
                         );
                     }
