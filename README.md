@@ -6,21 +6,23 @@ Web Stats for Half-Life Server
 
 ## Install
 
+* `apt install git composer curl php php-xml php-intl php-mbstring php-curl php-sqlite3`
 * `git clone https://github.com/YGGverse/HLState.git`
 * `cd HLState`
 * `composer install`
+* `php bin/console doctrine:schema:update --force`
 
 ### Setup
 
+* `chown -R user:group var`
 * `cp .env .env.local`
-* `php bin/console doctrine:database:create`
 * `crontab -e` > `* * * * * /usr/bin/curl --silent http://address/crontab/online &> /dev/null`
 
 ## Update
 
 * `composer update`
 * `php bin/console doctrine:migrations:migrate`
-* `php bin/console cache:clear`
+* `APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear`
 
 ## License
 
