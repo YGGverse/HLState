@@ -25,6 +25,13 @@ Web Monitor for Half-Life based on [HLServers](https://github.com/YGGverse/HLSer
 * `php bin/console doctrine:migrations:migrate`
 * `APP_ENV=prod APP_DEBUG=0 php bin/console cache:clear`
 
+## Contribution
+
+Please create new branch from main before make PR
+
+* `git checkout main`
+* `git checkout -b 'new-commit-branch'`
+
 ## License
 
 * Engine sources [MIT License](https://github.com/YGGverse/HLState/blob/main/LICENSE)
