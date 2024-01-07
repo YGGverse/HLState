@@ -14,7 +14,7 @@ Web Stats for Half-Life Server
 
 ### Setup
 
-* `chown -R user:group var`
+* `chown -R www-data:www-data var`
 * `cp .env .env.local`
 * `crontab -e` > `* * * * * /usr/bin/curl --silent http://address/crontab/online &> /dev/null`
 
