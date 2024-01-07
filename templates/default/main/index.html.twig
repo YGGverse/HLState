@@ -171,25 +171,25 @@
                 </h3>
                 <table>
                     <tr>
-                        <th class="text-align-left">
-                            {{ 'Name' | trans }} {{ sort(request, server.crc32server, 'players', 'name') }}
-                        </th>
                         <th class="text-align-center">
                             {{ 'Frags' | trans }} {{ sort(request, server.crc32server, 'players', 'frags') }}
                         </th>
                         <th class="text-align-left">
-                            {{ 'Joined' | trans }} {{ sort(request, server.crc32server, 'players', 'joined') }}
+                            {{ 'Name' | trans }} {{ sort(request, server.crc32server, 'players', 'name') }}
                         </th>
                         <th class="text-align-left">
                             {{ 'Online' | trans }} {{ sort(request, server.crc32server, 'players', 'online') }}
                         </th>
+                        <th class="text-align-left">
+                            {{ 'Joined' | trans }} {{ sort(request, server.crc32server, 'players', 'joined') }}
+                        </th>
                     </tr>
                     {% for player in server.players %}
                         <tr>
-                            <td class="text-align-left">{{ player.name }}</td>
                             <td class="text-align-center">{{ player.frags }}</td>
-                            <td class="text-align-left">{{ player.joined | date('r') }}</td>
-                            <td class="text-align-left">{{ player.online | date('r') }}</td>
+                            <td class="text-align-left">{{ player.name }}</td>
+                            <td class="text-align-left">{{ player.online | format_date }}</td>
+                            <td class="text-align-left">{{ player.joined | format_date }}</td>
                         </tr>
                     {% endfor %}
                 </table>
