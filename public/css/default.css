@@ -13,7 +13,7 @@
     /* vars */
     --container-max-width: 768px;
     --color-success: #4bc432;
-    --color-warning: #ee784e;
+    --color-warning: #f37b21;
     --color-error: #ff6363;
     --color-default: #999;
 }
@@ -70,6 +70,19 @@ header
     display: block;
     margin: 16px auto;
     max-width: var(--container-max-width);
+    position: relative;
+}
+
+header > h1
+{
+    padding-right: 32px;
+}
+
+header > a:first-child
+{
+    position: absolute;
+    top: -2px;
+    right: 4px;
 }
 
 main

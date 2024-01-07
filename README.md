@@ -37,6 +37,7 @@ Web Monitor for Half-Life based on [HLServers](https://github.com/YGGverse/HLSer
 * [Symfony Framework](https://symfony.com)
 * [SVG icons](https://icons.getbootstrap.com)
 * [PHP Source Query](https://github.com/xPaw/PHP-Source-Query)
+* [Half-Life logo](https://commons.wikimedia.org/wiki/File:Half-Life_lambda_logo.svg)
 
 ## Support
 
