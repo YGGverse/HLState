@@ -1,6 +1,6 @@
 # HLState
 
-Web Stats for Half-Life based on [HLServers](https://github.com/YGGverse/HLServers)
+Web Monitor for Half-Life based on [HLServers](https://github.com/YGGverse/HLServers)
 
 ![HLState](https://github.com/YGGverse/HLState/assets/108541346/e8559edf-8429-496e-afbb-752a822cd3d6)
 
