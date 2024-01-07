@@ -6,8 +6,8 @@
         <link>{{ url('main_index') }}</link>
         {% for player in players %}
             <item>
-                <title>{{ player.name }} {{ 'joined game!' | trans }}</title>
-                <guid>{{ player.id }}</guid>
+                <title>{{ player.name }} {{ 'joined' | trans }} {{ app.name }}!</title>
+                <guid>player#{{ player.id }}</guid>
                 <pubDate>{{ player.joined | date("D, d M Y h:i:s O") }}</pubDate>
             </item>
         {% endfor %}

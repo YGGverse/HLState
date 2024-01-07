@@ -7,7 +7,7 @@
         {% for value in online %}
             <item>
                 <title>{{ 'Online changed!' | trans }}</title>
-                <guid>{{ value.id }}</guid>
+                <guid>online#{{ value.id }}</guid>
                 <description>
                   {{ 'Players' | trans }}: {{ value.players }}
                   {{ 'Bots' | trans }}: {{ value.bots }}
