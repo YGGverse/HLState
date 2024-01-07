@@ -10,7 +10,7 @@ Web Monitor for Half-Life based on [HLServers](https://github.com/YGGverse/HLSer
 * `git clone https://github.com/YGGverse/HLState.git`
 * `cd HLState`
 * `composer install`
-* `php bin/console doctrine:schema:update --force`
+* `php bin/console doctrine:migrations:migrate`
 
 ### Setup
 
