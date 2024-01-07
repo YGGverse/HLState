@@ -20,6 +20,7 @@ Web Monitor for Half-Life based on [HLServers](https://github.com/YGGverse/HLSer
 
 ## Update
 
+* `git pull`
 * `git merge`
 * `composer update`
 * `php bin/console doctrine:migrations:migrate`
