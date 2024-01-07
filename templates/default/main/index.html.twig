@@ -98,7 +98,7 @@
                     </tr>
                     {% for online in server.online %}
                         <tr>
-                            <td class="text-align-left">{{ online.time | format_datetime }}</td>
+                            <td class="text-align-left">{{ online.time | date('r') }}</td>
                             <td class="text-align-center">{{ online.players }}</td>
                             <td class="text-align-center">{{ online.bots }}</td>
                             <td class="text-align-center">{{ online.total }}</td>
