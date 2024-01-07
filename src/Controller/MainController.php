@@ -173,6 +173,7 @@ class MainController extends AbstractController
                 'crc32server' => $crc32server,
                 'host'        => $hlserver->host,
                 'port'        => $hlserver->port,
+                'description' => $hlserver->description,
                 'aliases'     => $aliases,
                 'info'        => $info,
                 'session'     => $session,

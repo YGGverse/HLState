@@ -54,6 +54,20 @@
                 <h2>#{{ server.crc32server }}</h2>
             {% endif %}
             <hr />
+            {% if server.description.title %}
+                <div class="margin-y-8-px">
+                    {{ server.description.title }}
+                </div>
+            {% endif %}
+            {% if server.description.links %}
+                <div class="margin-y-8-px">
+                    <ul>
+                        {% for link in server.description.links %}
+                            <li class="margin-y-8-px"><a href="{{ link }}">{{ link }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             <h3 class="padding-y-8-px text-align-right">{{ 'Address' | trans }}</h3>
             <div>
                 {{ server.host }}:{{ server.port }}
@@ -74,7 +88,7 @@
             {% if server.aliases %}
                 <h3 class="padding-y-8-px text-align-right">{{ 'Alias' | trans }}</h3>
                 {% for alias in server.aliases %}
-                    <div>
+                    <div class="margin-y-8-px">
                         {{ alias.host }}:{{ alias.port }}
                         {% if alias.status %}
                             <span class="color-success" title="{{ 'Online' | trans }}">

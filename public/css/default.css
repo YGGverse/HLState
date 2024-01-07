@@ -65,6 +65,11 @@ table td
     padding: 4px;
 }
 
+ul
+{
+    margin-left: 16px;
+}
+
 header
 {
     display: block;
