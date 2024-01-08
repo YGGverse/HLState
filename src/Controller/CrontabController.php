@@ -224,6 +224,11 @@ class CrontabController extends AbstractController
                 continue;
             }
 
+            catch (\Throwable $error)
+            {
+                continue;
+            }
+
             finally
             {
                 $server->Disconnect();

@@ -163,6 +163,11 @@ class MainController extends AbstractController
                 continue;
             }
 
+            catch (\Throwable $error)
+            {
+                $status = false;
+            }
+
             finally
             {
                 $server->Disconnect();

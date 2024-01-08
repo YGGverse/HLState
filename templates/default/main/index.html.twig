@@ -48,13 +48,13 @@
 {% block main_content %}
     {% for server in servers %}
         <div class="border-default padding-8-px margin-y-8-px">
-            {% if server.info.HostName %}
+            {% if server.info.HostName is defined %}
                 <h2>{{ server.info.HostName }} [#{{ server.crc32server }}]</h2>
             {% else %}
                 <h2>#{{ server.crc32server }}</h2>
             {% endif %}
             <hr />
-            {% if server.description.title %}
+            {% if server.description.title is defined %}
                 <div class="margin-y-8-px">
                     {{ server.description.title }}
                 </div>
