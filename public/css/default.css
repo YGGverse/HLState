@@ -102,6 +102,8 @@ footer
     display: block;
     margin: 16px auto;
     max-width: var(--container-max-width);
+    overflow: hidden;
+    position: relative;
 }
 
 /* framework */
@@ -165,6 +167,16 @@ a.color-default:visited
 .text-align-right
 {
     text-align: right;
+}
+
+.float-left
+{
+    float: left;
+}
+
+.float-right
+{
+    float: right;
 }
 
 .border-default
