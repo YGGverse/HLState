@@ -47,6 +47,7 @@ Please create new branch from main before make PR
 * [SVG icons](https://icons.getbootstrap.com)
 * [PHP Source Query](https://github.com/xPaw/PHP-Source-Query)
 * [Half-Life logo](https://commons.wikimedia.org/wiki/File:Half-Life_lambda_logo.svg)
+* [Favicons](https://realfavicongenerator.net)
 
 ## Support
 
