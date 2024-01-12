@@ -103,7 +103,7 @@ class ServerController extends AbstractController
                 if ($info = (array) $node->GetInfo())
                 {
                     // Get session
-                    $session = empty($info['Players']) ? [] : (array) $server->GetPlayers();
+                    $session = empty($info['Players']) ? [] : (array) $node->GetPlayers();
 
                     // Sort by players by frags
                     if ($session)
