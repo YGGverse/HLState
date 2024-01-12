@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Online;
 use App\Entity\Player;
+use App\Entity\Server;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 class RssController extends AbstractController
@@ -32,78 +34,47 @@ class RssController extends AbstractController
         EntityManagerInterface $entityManagerInterface
     ): Response
     {
-        // Get HLServers config
-        if ($hlservers = file_get_contents($this->getParameter('app.hlservers')))
+        $online = [];
+
+        foreach ($entityManagerInterface->getRepository(Online::class)->findBy(
+            [
+                'crc32server' => $request->get('crc32server')
+            ],
+            [
+                'id' => 'DESC' // same as online.time but faster
+            ],
+            10
+        ) as $value)
         {
-            $hlservers = json_decode($hlservers);
+            $online[] =
+            [
+                'id'      => $value->getId(),
+                'bots'    => $value->getBots(),
+                'players' => $value->getPlayers(),
+                'total'   => $value->getTotal(),
+                'time'    => $value->getTime()
+            ];
         }
 
-        else
-        {
-            $hlservers = [];
-        }
+        // Response
+        $response = new Response();
 
-        // Find server info
-        foreach ($hlservers as $hlserver)
-        {
-            // Generate CRC32 server ID
-            $crc32server = crc32(
-                $hlserver->host . ':' . $hlserver->port
-            );
+        $response->headers->set(
+            'Content-Type',
+            'text/xml'
+        );
 
-            // Skip servers not registered in HLServers
-            if ($crc32server != $request->get('crc32server'))
-            {
-                continue;
-            }
-
-            // Get last online value
-            $online = $entityManagerInterface->getRepository(Online::class)->findBy(
+        return $this->render(
+            'default/rss/online.xml.twig',
+            [
+                'server' =>
                 [
-                    'crc32server' => $crc32server
-                ],
-                [
-                    'id' => 'DESC' // same as online.time but faster
-                ],
-                10
-            );
-
-            $result = [];
-
-            foreach ($online as $value)
-            {
-                $result[] =
-                [
-                    'id'      => $value->getId(),
-                    'bots'    => $value->getBots(),
-                    'players' => $value->getPlayers(),
-                    'total'   => $value->getTotal(),
-                    'time'    => $value->getTime()
-                ];
-            }
-
-            // Response
-            $response = new Response();
-
-            $response->headers->set(
-                'Content-Type',
-                'text/xml'
-            );
-
-            return $this->render(
-                'default/rss/online.xml.twig',
-                [
-                    'server' =>
-                    [
-                        'crc32' => $crc32server,
-                        'host'  => $hlserver->host,
-                        'port'  => $hlserver->port,
-                    ],
-                    'online'      => $result
-                ],
-                $response
-            );
-        }
+                    'crc32server' => $request->get('crc32server'),
+                    'online'      => $online
+                ]
+            ],
+            $response
+        );
 
         throw $this->createNotFoundException();
     }
@@ -125,77 +96,44 @@ class RssController extends AbstractController
         EntityManagerInterface $entityManagerInterface
     ): Response
     {
-        // Get HLServers config
-        if ($hlservers = file_get_contents($this->getParameter('app.hlservers')))
+        $players = [];
+
+        foreach ($entityManagerInterface->getRepository(Player::class)->findBy(
+            [
+                'crc32server' => $request->get('crc32server')
+            ],
+            [
+                'id' => 'DESC'
+            ],
+            10
+        ) as $value)
         {
-            $hlservers = json_decode($hlservers);
+            $result[] =
+            [
+                'id'     => $value->getId(),
+                'name'   => $value->getName(),
+                'joined' => $value->getJoined()
+            ];
         }
 
-        else
-        {
-            $hlservers = [];
-        }
+        // Response
+        $response = new Response();
 
-        // Find server info
-        foreach ($hlservers as $hlserver)
-        {
-            // Generate CRC32 server ID
-            $crc32server = crc32(
-                $hlserver->host . ':' . $hlserver->port
-            );
+        $response->headers->set(
+            'Content-Type',
+            'text/xml'
+        );
 
-            // Skip servers not registered in HLServers
-            if ($crc32server != $request->get('crc32server'))
-            {
-                continue;
-            }
-
-            // Get last players
-            $players = $entityManagerInterface->getRepository(Player::class)->findBy(
+        return $this->render(
+            'default/rss/players.xml.twig',
+            [
+                'server' =>
                 [
-                    'crc32server' => $crc32server
-                ],
-                [
-                    'id' => 'DESC'
-                ],
-                10
-            );
-
-            $result = [];
-
-            foreach ($players as $value)
-            {
-                $result[] =
-                [
-                    'id'     => $value->getId(),
-                    'name'   => $value->getName(),
-                    'joined' => $value->getJoined()
-                ];
-            }
-
-            // Response
-            $response = new Response();
-
-            $response->headers->set(
-                'Content-Type',
-                'text/xml'
-            );
-
-            return $this->render(
-                'default/rss/players.xml.twig',
-                [
-                    'server' =>
-                    [
-                        'crc32' => $crc32server,
-                        'host'  => $hlserver->host,
-                        'port'  => $hlserver->port,
-                    ],
-                    'players' => $result
-                ],
-                $response
-            );
-        }
-
-        throw $this->createNotFoundException();
+                    'crc32server' => $request->get('crc32server'),
+                    'players'     => $players
+                ]
+            ],
+            $response
+        );
     }
 }

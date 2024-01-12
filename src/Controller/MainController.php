@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Online;
 use App\Entity\Player;
+use App\Entity\Server;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 class MainController extends AbstractController
@@ -28,139 +30,56 @@ class MainController extends AbstractController
         EntityManagerInterface $entityManagerInterface
     ): Response
     {
-        // Prepare request
-        if ('online' == $request->get('sort') && in_array($request->get('field'), ['time','players','bots','total']))
-        {
-            $field = $request->get('field');
-        }
-
-        else if ('players' == $request->get('sort') && in_array($request->get('field'), ['name','frags','joined','online']))
-        {
-            $field = $request->get('field');
-        }
-
-        else
-        {
-            $field = 'time';
-        }
-
-        if (in_array($request->get('order'), ['asc','desc']))
-        {
-            $order = $request->get('order');
-        }
-
-        else
-        {
-            $order = 'desc';
-        }
-
-        // Get HLServers config
-        if ($hlservers = file_get_contents($this->getParameter('app.hlservers')))
-        {
-            $hlservers = json_decode($hlservers);
-        }
-
-        else
-        {
-            $hlservers = [];
-        }
-
         // Collect servers info
         $servers = [];
 
-        foreach ($hlservers as $hlserver)
+        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findAll() as $server)
         {
             // Init defaults
-            $info    = [];
-            $session = [];
-            $online  = [];
-            $players = [];
+            $status = false;
 
-            // Generate CRC32 ID
-            $crc32server = crc32(
-                $hlserver->host . ':' . $hlserver->port
-            );
-
-            // Prepare aliases
-            $aliases = [];
-
-            foreach ($hlserver->alias as $value)
-            {
-                $alias = new \xPaw\SourceQuery\SourceQuery();
-
-                $alias->Connect(
-                    $value->host,
-                    $value->port
-                );
-
-                $aliases[] = [
-                    'host'   => $value->host,
-                    'port'   => $value->port,
-                    'status' => $alias->Ping()
-                ];
-            }
+            $info =
+            [
+                'Protocol'   => null,
+                'HostName'   => null,
+                'Map'        => null,
+                'ModDir'     => null,
+                'ModDesc'    => null,
+                'AppID'      => null,
+                'Players'    => null,
+                'MaxPlayers' => null,
+                'Bots'       => null,
+                'Dedicated'  => null,
+                'Os'         => null,
+                'Password'   => null,
+                'Secure'     => null,
+                'Version'    => null
+            ];
 
             // Request server info
             try
             {
-                $server = new \xPaw\SourceQuery\SourceQuery();
+                $node = new \xPaw\SourceQuery\SourceQuery();
 
-                $server->Connect(
-                    $hlserver->host,
-                    $hlserver->port
+                $node->Connect(
+                    false === filter_var($server->getHost(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? $server->getHost() : "[{$server->getHost()}]",
+                    $server->getPort()
                 );
 
-                if ($server->Ping())
+                if ($node->Ping())
                 {
-                    if ($info = (array) $server->GetInfo())
-                    {
-                        // Get session
-                        $session = empty($info['Players']) ? [] : (array) $server->GetPlayers();
-
-                        // Sort by players by frags
-                        if ($session)
-                        {
-                            array_multisort(
-                                array_column(
-                                    $session,
-                                    'Frags'
-                                ),
-                                SORT_DESC,
-                                $session
-                            );
-                        }
-
-                        // Get online
-                        $online = $entityManagerInterface->getRepository(Online::class)->findBy(
-                            [
-                                'crc32server' => $crc32server
-                            ],
-                            'online' == $request->get('sort') && $crc32server == $request->get('crc32server') ? [$field => $order] : ['time' => 'DESC'],
-                            10
-                        );
-
-                        // Get players
-                        $players = $entityManagerInterface->getRepository(Player::class)->findBy(
-                            [
-                                'crc32server' => $crc32server
-                            ],
-                            'players' == $request->get('sort') && $crc32server == $request->get('crc32server') ? [$field => $order] : ['frags' => 'DESC'],
-                            10
-                        );
-                    }
-
                     $status = true;
-                }
 
-                else
-                {
-                    $status = false;
+                    foreach ((array) $node->GetInfo() as $key => $value)
+                    {
+                        $info[$key] = $value;
+                    }
                 }
             }
 
             catch (Exception $error)
             {
-                continue;
+                throw $this->createNotFoundException();
             }
 
             catch (\Throwable $error)
@@ -170,20 +89,18 @@ class MainController extends AbstractController
 
             finally
             {
-                $server->Disconnect();
+                $node->Disconnect();
             }
 
             // Add server
             $servers[] = [
-                'crc32server' => $crc32server,
-                'host'        => $hlserver->host,
-                'port'        => $hlserver->port,
-                'description' => $hlserver->description,
-                'aliases'     => $aliases,
+                'crc32server' => $server->getCrc32server(),
+                'host'        => $server->getHost(),
+                'port'        => $server->getPort(),
+                'added'       => $server->getAdded(),
+                'updated'     => $server->getUpdated(),
+                'online'      => $server->getOnline(),
                 'info'        => $info,
-                'session'     => $session,
-                'online'      => $online,
-                'players'     => $players,
                 'status'      => $status
             ];
         }

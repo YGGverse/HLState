@@ -1,96 +1,23 @@
-{% macro sort(request, crc32server, sort, field) %}
-    {% if sort == request.get('sort') and crc32server == request.get('crc32server') %}
-        {% if field == request.get('field') %}
-            {% if 'asc' == request.get('order') %}
-                <a href="{{ path('main_index', { sort : sort, field : field, order : 'desc', crc32server : crc32server, '_fragment' : '%s-%d' | format(sort, crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
-                </svg></a>
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
-                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
-                </svg>
-            {% else %}
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
-                </svg>
-                <a href="{{ path('main_index', { sort : sort, field : field, order : 'asc', crc32server : crc32server, '_fragment' : '%s-%d' | format(sort, crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
-                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
-                </svg></a>
-            {% endif %}
-        {% else %}
-            <a href="{{ path('main_index', { sort : sort, field : field, order : 'desc', crc32server : crc32server, '_fragment' : '%s-%d' | format(sort, crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
-            </svg></a>
-            <a href="{{ path('main_index', { sort : sort, field : field, order : 'asc', crc32server : crc32server, '_fragment' : '%s-%d' | format(sort, crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
-            </svg></a>
-        {% endif %}
-    {% else %}
-        {% if 'online' == sort and 'time' == field %}
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
-            </svg>
-        {% elseif 'players' == sort and 'frags' == field %}
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
-            </svg>
-        {% else %}
-            <a href="{{ path('main_index', { sort : sort, field : field, order : 'desc', crc32server : crc32server, '_fragment' : '%s-%d' | format(sort, crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6z"/>
-            </svg></a>
-        {% endif %}
-        <a href="{{ path('main_index', { sort : sort, field : field, order : 'asc', crc32server : crc32server, '_fragment' : '%s-%d' | format(sort, crc32server) }) }}" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"  viewBox="0 0 16 16">
-            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4 9h8a.5.5 0 0 0 .374-.832l-4-4.5a.5.5 0 0 0-.748 0l-4 4.5A.5.5 0 0 0 4 11"/>
-        </svg></a>
-    {% endif %}
-{% endmacro %}
-{% from _self import sort %}
 {% extends 'default/layout.html.twig' %}
 {% block main_content %}
-    {% for server in servers %}
-        <div class="border-default padding-8-px margin-y-8-px">
-            {% if server.info.HostName is defined %}
-                <h2>{{ server.info.HostName }} [#{{ server.crc32server }}]</h2>
-            {% else %}
-                <h2>#{{ server.crc32server }}</h2>
-            {% endif %}
-            <hr />
-            {% if server.description.title is defined %}
-                <div class="margin-y-8-px">
-                    {{ server.description.title }}
-                </div>
-            {% endif %}
-            {% if server.description.links %}
-                <div class="margin-y-8-px">
-                    <ul>
-                        {% for link in server.description.links %}
-                            <li class="margin-y-8-px"><a href="{{ link }}">{{ link }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-            <h3 class="padding-y-8-px text-align-right">{{ 'Address' | trans }}</h3>
-            <div>
-                {{ server.host }}:{{ server.port }}
-                {% if server.status %}
-                    <span class="color-success" title="{{ 'Online' | trans }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
-                        </svg>
-                    </span>
-                {% else %}
-                    <span class="color-error" title="{{ 'Offline' | trans }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
-                        </svg>
-                    </span>
-                {% endif %}
-            </div>
-            {% if server.aliases %}
-                <h3 class="padding-y-8-px text-align-right">{{ 'Alias' | trans }}</h3>
-                {% for alias in server.aliases %}
-                    <div class="margin-y-8-px">
-                        {{ alias.host }}:{{ alias.port }}
-                        {% if alias.status %}
+    <h2>{{ 'Servers' | trans }}</h2>
+    <table class="margin-y-8-px">
+        <tr>
+            <th class="text-align-center">{{ 'Status' | trans }}</th>
+            <th class="text-align-left">{{ 'Name' | trans }}</th>
+            <th class="text-align-left">{{ 'Map' | trans }}</th>
+            <th class="text-align-left">{{ 'Added' | trans }}</th>
+            <th class="text-align-left">{{ 'Online' | trans }}</th>
+            <th class="text-align-center">{{ 'Players' | trans }}</th>
+            <th class="text-align-center">{{ 'Max' | trans }}</th>
+            <th class="text-align-center">{{ 'Bots' | trans }}</th>
+            <th class="text-align-center">{{ 'Actions' | trans }}</th>
+        </tr>
+        {% if servers %}
+            {% for server in servers %}
+                <tr>
+                    <td class="text-align-center">
+                        {% if server.status %}
                             <span class="color-success" title="{{ 'Online' | trans }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 13A5 5 0 1 0 8 3a5 5 0 0 0 0 10"/>
@@ -103,111 +30,25 @@
                                 </svg>
                             </span>
                         {% endif %}
-                    </div>
-                {% endfor %}
-            {% endif %}
-            {% if server.info %}
-                <h3 class="padding-y-8-px text-align-right">{{ 'Info' | trans }}</h3>
-                <table>
-                    {% for key, value in server.info %}
-                        <tr>
-                            <td class="text-align-left">{{ key }}</td>
-                            <td class="text-align-left">{{ value }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if server.session %}
-                <h3 class="padding-y-8-px text-align-right">{{ 'Session' | trans }}</h3>
-                <table>
-                    <tr>
-                        <th class="text-align-left">{{ 'Player' | trans }}</th>
-                        <th class="text-align-center">{{ 'Frags' | trans }}</th>
-                        <th class="text-align-center">{{ 'Time' | trans }}</th>
-                    </tr>
-                    {% for player in server.session %}
-                        <tr>
-                            <td class="text-align-left">{{ player.Name }}</td>
-                            <td class="text-align-center">{{ player.Frags }}</td>
-                            <td class="text-align-center">
-                                {% if player.TimeF == '59:59' %}
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916z"/>
-                                    </svg>
-                                {% else %}
-                                    {{ player.TimeF }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if server.online %}
-                <a name="{{ '%s-%d' | format('online', server.crc32server) }}"></a>
-                <h3 class="padding-y-8-px text-align-right">
-                    {{ 'Online' | trans }}
-                    <a href="{{ path('rss_online', { crc32server : server.crc32server }) }}" title="{{ 'RSS' | trans }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2m0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2m.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                    </svg></a>
-                </h3>
-                <table>
-                    <tr>
-                        <th class="text-align-left">
-                            {{ 'Time' | trans }} {{ sort(request, server.crc32server, 'online', 'time') }}
-                        </th>
-                        <th class="text-align-center">
-                            {{ 'Players' | trans }} {{ sort(request, server.crc32server, 'online', 'players') }}
-                        </th>
-                        <th class="text-align-center">
-                            {{ 'Bots' | trans }} {{ sort(request, server.crc32server, 'online', 'bots') }}
-                        </th>
-                        <th class="text-align-center">
-                            {{ 'Total' | trans }} {{ sort(request, server.crc32server, 'online', 'total') }}
-                        </th>
-                    </tr>
-                    {% for online in server.online %}
-                        <tr>
-                            <td class="text-align-left">{{ online.time | date('r') }}</td>
-                            <td class="text-align-center">{{ online.players }}</td>
-                            <td class="text-align-center">{{ online.bots }}</td>
-                            <td class="text-align-center">{{ online.total }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-            {% if server.players %}
-                <a name="{{ '%s-%d' | format('players', server.crc32server) }}"></a>
-                <h3 class="padding-y-8-px text-align-right">
-                    {{ 'Players' | trans }}
-                    <a href="{{ path('rss_players', { crc32server : server.crc32server }) }}" title="{{ 'RSS' | trans }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2m0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2m.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                    </svg></a>
-                </h3>
-                <table>
-                    <tr>
-                        <th class="text-align-center">
-                            {{ 'Frags' | trans }} {{ sort(request, server.crc32server, 'players', 'frags') }}
-                        </th>
-                        <th class="text-align-left">
-                            {{ 'Name' | trans }} {{ sort(request, server.crc32server, 'players', 'name') }}
-                        </th>
-                        <th class="text-align-left">
-                            {{ 'Online' | trans }} {{ sort(request, server.crc32server, 'players', 'online') }}
-                        </th>
-                        <th class="text-align-left">
-                            {{ 'Joined' | trans }} {{ sort(request, server.crc32server, 'players', 'joined') }}
-                        </th>
-                    </tr>
-                    {% for player in server.players %}
-                        <tr>
-                            <td class="text-align-center">{{ player.frags }}</td>
-                            <td class="text-align-left">{{ player.name }}</td>
-                            <td class="text-align-left">{{ player.online | format_date }}</td>
-                            <td class="text-align-left">{{ player.joined | format_date }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
-        </div>
-    {% endfor %}
+                    </td>
+                    <td class="text-align-left">{{ server.info.HostName }}</td>
+                    <td class="text-align-left">{{ server.info.Map }}</td>
+                    <td class="text-align-left">{{ server.added | format_date }}</td>
+                    <td class="text-align-left">{{ server.online | format_date }}</td>
+                    <td class="text-align-center">{{ server.info.Players }}</td>
+                    <td class="text-align-center">{{ server.info.MaxPlayers }}</td>
+                    <td class="text-align-center">{{ server.info.Bots }}</td>
+                    <td class="text-align-center">
+                        <a href="{{ path('server_index', { crc32server : server.crc32server }) }}" title="{{ 'Stats' | trans }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1z"/>
+                        </svg></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td class="text-align-center" colspan="9">{{ 'Not found' | trans }}</td>
+            </tr>
+        {% endif %}
+    </table>
 {% endblock %}

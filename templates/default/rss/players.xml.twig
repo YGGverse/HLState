@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
-        <atom:link href="{{ url('main_index') }}" rel="self" type="application/rss+xml"></atom:link>
-        <title>{{ server.host }}:{{ server.port }} - {{ 'Players' | trans }} - {{ app.name }}</title>
-        <link>{{ url('main_index') }}</link>
-        {% for player in players %}
+        <atom:link href="{{ url('server_index', { crc32server : server.crc32server }) }}" rel="self" type="application/rss+xml"></atom:link>
+        <title>#{{ server.crc32server }} - {{ 'Players' | trans }} - {{ app.name }}</title>
+        <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}</link>
+        {% for player in server.players %}
             <item>
                 <title>{{ player.name }} {{ 'joined' | trans }} {{ app.name }}!</title>
-                <guid>player#{{ player.id }}</guid>
+                <guid>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'players' }) }}-{{ value.id }}</guid>
+                <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'players' }) }}</link>
                 <pubDate>{{ player.joined | date("D, d M Y h:i:s O") }}</pubDate>
             </item>
         {% endfor %}

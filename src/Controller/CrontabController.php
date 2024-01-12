@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 use App\Entity\Online;
 use App\Entity\Player;
+use App\Entity\Server;
+
 use Doctrine\ORM\EntityManagerInterface;
 
 class CrontabController extends AbstractController
@@ -25,37 +27,133 @@ class CrontabController extends AbstractController
     )]
     public function index(
         ?Request $request,
+        TranslatorInterface $translatorInterface,
         EntityManagerInterface $entityManagerInterface
     ): Response
     {
-        // Get HLServers config
-        if ($hlservers = file_get_contents($this->getParameter('app.hlservers')))
+        // Prevent multi-thread execution
+        $semaphore = sem_get(
+            crc32(
+                __DIR__ . '.controller.crontab.index',
+            ), 1
+        );
+
+        if (false === sem_acquire($semaphore, true))
         {
-            $hlservers = json_decode($hlservers);
+            return new Response(
+                $translatorInterface->trans('Process locked by another thread')
+            );
         }
 
-        else
+        // Get new servers from masters
+        foreach ((array) explode(',', $this->getParameter('app.masters')) as $master)
         {
-            $hlservers = [];
+            if (!$host = parse_url($master, PHP_URL_HOST)) // @TODO IPv6 https://bugs.php.net/bug.php?id=72811
+            {
+                continue;
+            }
+
+            if (!$port = parse_url($master, PHP_URL_PORT))
+            {
+                continue;
+            }
+
+            // Connect master node
+            $node = new \Yggverse\Hl\Xash3D\Master($host, $port, 1);
+
+            foreach ((array) $node->getServersIPv6() as $key => $value)
+            {
+                // Generate server identity
+                $crc32server = crc32(
+                    $key
+                );
+
+                // Check server does not exist yet
+                $server = $entityManagerInterface->getRepository(Server::class)->findOneBy(
+                    [
+                        'crc32server' => $crc32server
+                    ]
+                );
+
+                // Server exist, just update
+                if ($server)
+                {
+                    $server->setUpdated(
+                        time()
+                    );
+
+                    $server->setOnline(
+                        time()
+                    );
+
+                    $entityManagerInterface->persist(
+                        $server
+                    );
+
+                    $entityManagerInterface->flush();
+
+                    continue;
+                }
+
+                // Server does not exist, create new record
+                $server = new Server();
+
+                $server->setCrc32server(
+                    $crc32server
+                );
+
+                $server->setHost(
+                    $value['host']
+                );
+
+                $server->setPort(
+                    $value['port']
+                );
+
+                $server->setAdded(
+                    time()
+                );
+
+                $server->setUpdated(
+                    time()
+                );
+
+                $server->setOnline(
+                    time()
+                );
+
+                $entityManagerInterface->persist(
+                    $server
+                );
+
+                $entityManagerInterface->flush();
+            }
         }
 
         // Collect servers info
         $servers = [];
 
-        foreach ($hlservers as $hlserver)
+        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findBy(
+            [
+                'crc32server' => (int) $request->get('crc32server')
+            ],
+            [
+                'id' => 'ASC'
+            ],
+        ) as $server)
         {
             try
             {
-                $server = new \xPaw\SourceQuery\SourceQuery();
+                $query = new \xPaw\SourceQuery\SourceQuery();
 
-                $server->Connect(
-                    $hlserver->host,
-                    $hlserver->port
+                $query->Connect(
+                    false === filter_var($server->getHost(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? $server->getHost() : "[{$server->getHost()}]",
+                    $server->port
                 );
 
-                if ($server->Ping())
+                if ($query->Ping())
                 {
-                    if ($info = (array) $server->GetInfo())
+                    if ($info = (array) $query->GetInfo())
                     {
                         // Filter response
                         $bots    = isset($info['Bots']) && $info['Bots'] > 0 ? (int) $info['Bots'] : 0;
@@ -64,7 +162,7 @@ class CrontabController extends AbstractController
 
                         // Generate CRC32 server ID
                         $crc32server = crc32(
-                            $hlserver->host . ':' . $hlserver->port
+                            $server->host . ':' . $server->port
                         );
 
                         // Get last online value
@@ -121,7 +219,7 @@ class CrontabController extends AbstractController
                         // Update player stats
                         if ($players)
                         {
-                            foreach ((array) $server->GetPlayers() as $session)
+                            foreach ((array) $query->GetPlayers() as $session)
                             {
                                 // Validate fields
                                 if
@@ -231,7 +329,7 @@ class CrontabController extends AbstractController
 
             finally
             {
-                $server->Disconnect();
+                $query->Disconnect();
             }
         }
 

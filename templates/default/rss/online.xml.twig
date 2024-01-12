@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
-        <atom:link href="{{ url('main_index') }}" rel="self" type="application/rss+xml"></atom:link>
-        <title>{{ server.host }}:{{ server.port }} - {{ app.name }}</title>
-        <link>{{ url('main_index') }}</link>
-        {% for value in online %}
+        <atom:link href="{{ url('server_index', { crc32server : server.crc32server }) }}" rel="self" type="application/rss+xml"></atom:link>
+        <title>#{{ server.crc32server }} - {{ 'Online' | trans }} - {{ app.name }}</title>
+        <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}</link>
+        {% for value in server.online %}
             <item>
                 <title>{{ 'Online changed!' | trans }}</title>
-                <guid>online#{{ value.id }}</guid>
+                <guid>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}-{{ value.id }}</guid>
+                <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}</link>
                 <description>
                   {{ 'Players' | trans }}: {{ value.players }}
                   {{ 'Bots' | trans }}: {{ value.bots }}
