@@ -33,12 +33,7 @@ class MainController extends AbstractController
         // Collect servers info
         $servers = [];
 
-        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findBy(
-            [],
-            [
-                'online' => 'desc'
-            ]
-        ) as $server)
+        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findAll() as $server)
         {
             // Init defaults
             $status = false;
@@ -106,9 +101,20 @@ class MainController extends AbstractController
                 'updated'     => $server->getUpdated(),
                 'online'      => $server->getOnline(),
                 'info'        => $info,
-                'status'      => $status
+                'status'      => $status,
+                'sort'        => empty($info['Players']) ? 0 : (int) $info['Players']
             ];
         }
+
+        // Sort by players
+        array_multisort(
+            array_column(
+                $servers,
+                'sort'
+            ),
+            SORT_DESC,
+            $servers
+        );
 
         return $this->render(
             'default/main/index.html.twig',
