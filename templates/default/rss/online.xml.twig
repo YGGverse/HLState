@@ -7,7 +7,7 @@
         {% for value in server.online %}
             <item>
                 <title>{{ 'Online changed!' | trans }}</title>
-                <guid>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}-{{ value.id }}</guid>
+                <guid>{{ url('server_index', { crc32server : server.crc32server, guid: value.id, _fragment : 'online' }) }}</guid>
                 <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}</link>
                 <description>
                   {{ 'Players' | trans }}: {{ value.players }}
