@@ -77,15 +77,15 @@ class ServerController extends AbstractController
         $online  = [];
         $players = [];
 
-        // Format name
+        // Format address
         if (false === filter_var($server->getHost(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))
         {
-            $name = "{$server->getHost()}:{$server->getPort()}";
+            $address = "{$server->getHost()}:{$server->getPort()}";
         }
 
         else
         {
-            $name = "[{$server->getHost()}]:{$server->getPort()}";
+            $address = "[{$server->getHost()}]:{$server->getPort()}";
         }
 
         // Request server info
@@ -167,7 +167,7 @@ class ServerController extends AbstractController
                 'request' => $request,
                 'server' =>
                 [
-                    'name'        => $name,
+                    'address'     => $address,
                     'crc32server' => $server->getCrc32Server(),
                     'host'        => $server->getHost(),
                     'port'        => $server->getPort(),
