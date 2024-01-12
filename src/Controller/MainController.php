@@ -33,7 +33,12 @@ class MainController extends AbstractController
         // Collect servers info
         $servers = [];
 
-        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findAll() as $server)
+        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findBy(
+            [],
+            [
+                'online' => 'desc'
+            ]
+        ) as $server)
         {
             // Init defaults
             $status = false;
