@@ -108,7 +108,7 @@ class RssController extends AbstractController
             10
         ) as $value)
         {
-            $result[] =
+            $players[] =
             [
                 'id'     => $value->getId(),
                 'name'   => $value->getName(),
