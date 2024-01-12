@@ -4,15 +4,15 @@
         <atom:link href="{{ url('server_index', { crc32server : server.crc32server }) }}" rel="self" type="application/rss+xml"></atom:link>
         <title>#{{ server.crc32server }} - {{ 'Online' | trans }} - {{ app.name }}</title>
         <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}</link>
-        {% for value in server.online %}
+        {% for online in server.online %}
             <item>
                 <title>{{ 'Online changed!' | trans }}</title>
-                <guid>{{ url('server_index', { crc32server : server.crc32server, guid: value.id, _fragment : 'online' }) }}</guid>
+                <guid>{{ url('server_index', { crc32server : server.crc32server, guid: online.id, _fragment : 'online' }) }}</guid>
                 <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'online' }) }}</link>
                 <description>
-                  {{ 'Players' | trans }}: {{ value.players }}
-                  {{ 'Bots' | trans }}: {{ value.bots }}
-                  {{ 'Total' | trans }}: {{ value.total }}
+                  {{ 'Players' | trans }}: {{ online.players }}
+                  {{ 'Bots' | trans }}: {{ online.bots }}
+                  {{ 'Total' | trans }}: {{ online.total }}
                 </description>
             </item>
         {% endfor %}

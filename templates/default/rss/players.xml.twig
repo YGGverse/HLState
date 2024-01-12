@@ -7,7 +7,7 @@
         {% for player in server.players %}
             <item>
                 <title>{{ player.name }} {{ 'joined' | trans }} {{ app.name }}!</title>
-                <guid>{{ url('server_index', { crc32server : server.crc32server, guid: value.id, _fragment : 'players' }) }}</guid>
+                <guid>{{ url('server_index', { crc32server : server.crc32server, guid: player.id, _fragment : 'players' }) }}</guid>
                 <link>{{ url('server_index', { crc32server : server.crc32server, _fragment : 'players' }) }}</link>
                 <pubDate>{{ player.joined | date("D, d M Y h:i:s O") }}</pubDate>
             </item>
