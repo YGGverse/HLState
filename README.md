@@ -1,6 +1,6 @@
 # HLState
 
-Web Monitor for Half-Life based on [HLServers](https://github.com/YGGverse/HLServers)
+Web Monitor for Half-Life based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler
 
 ![HLState](https://github.com/YGGverse/HLState/assets/108541346/e8559edf-8429-496e-afbb-752a822cd3d6)
 
@@ -46,6 +46,7 @@ Please create new branch from main before make PR
 * [Symfony Framework](https://symfony.com)
 * [SVG icons](https://icons.getbootstrap.com)
 * [PHP Source Query](https://github.com/xPaw/PHP-Source-Query)
+* [HL-PHP](https://github.com/YGGverse/hl-php)
 * [Half-Life logo](https://commons.wikimedia.org/wiki/File:Half-Life_lambda_logo.svg)
 * [Favicons](https://realfavicongenerator.net)
 
@@ -59,6 +60,5 @@ Please create new branch from main before make PR
 
 ## See also
 
-* [HLServers](https://github.com/YGGverse/HLServers) - Half-Life Servers Registry for HLState
 * [half-life-server](https://github.com/YGGverse/half-life-server) - Half-Life server edition by YGGverse
 * [pymaster](https://github.com/YGGverse/pymaster) - Refactored master server written in Python
