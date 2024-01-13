@@ -153,11 +153,6 @@ class CrontabController extends AbstractController
                         $players = isset($info['Players']) && $info['Players'] > 0 ? (int) $info['Players'] - $bots : 0;
                         $total   = $players + $bots;
 
-                        // Generate CRC32 server ID
-                        $crc32server = crc32(
-                            $server->host . ':' . $server->port
-                        );
-
                         // Update server name
                         if (!empty($info['HostName']) && mb_strlen($info['HostName']) < 256)
                         {
@@ -183,7 +178,7 @@ class CrontabController extends AbstractController
                         // Get last online value
                         $online = $entityManagerInterface->getRepository(Online::class)->findOneBy(
                             [
-                                'crc32server' => $crc32server
+                                'crc32server' => $server->getCrc32server()
                             ],
                             [
                                 'id' => 'DESC' // same as online.time but faster
@@ -205,7 +200,7 @@ class CrontabController extends AbstractController
                             $online = new Online();
 
                             $online->setCrc32server(
-                                $crc32server
+                                $server->getCrc32server()
                             );
 
                             $online->setTime(
@@ -262,7 +257,7 @@ class CrontabController extends AbstractController
 
                                 $player = $entityManagerInterface->getRepository(Player::class)->findOneBy(
                                     [
-                                        'crc32server' => $crc32server,
+                                        'crc32server' => $server->getCrc32server(),
                                         'crc32name'   => $crc32name,
                                     ]
                                 );
@@ -292,7 +287,7 @@ class CrontabController extends AbstractController
                                     $player = new Player();
 
                                     $player->setCrc32server(
-                                        $crc32server
+                                        $server->getCrc32server()
                                     );
 
                                     $player->setCrc32name(

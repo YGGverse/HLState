@@ -121,7 +121,7 @@ class ServerController extends AbstractController
                     // Get online
                     $online = $entityManagerInterface->getRepository(Online::class)->findBy(
                         [
-                            'crc32server' => $server->getCrc32Server()
+                            'crc32server' => $server->getCrc32server()
                         ],
                         'online' == $request->get('sort') ? [$field => $order] : ['time' => 'DESC'],
                         10
@@ -130,7 +130,7 @@ class ServerController extends AbstractController
                     // Get players
                     $players = $entityManagerInterface->getRepository(Player::class)->findBy(
                         [
-                            'crc32server' => $server->getCrc32Server()
+                            'crc32server' => $server->getCrc32server()
                         ],
                         'players' == $request->get('sort') ? [$field => $order] : ['frags' => 'DESC'],
                         10
@@ -168,7 +168,7 @@ class ServerController extends AbstractController
                 'server' =>
                 [
                     'address'     => $address,
-                    'crc32server' => $server->getCrc32Server(),
+                    'crc32server' => $server->getCrc32server(),
                     'name'        => $server->getName(),
                     'host'        => $server->getHost(),
                     'port'        => $server->getPort(),
