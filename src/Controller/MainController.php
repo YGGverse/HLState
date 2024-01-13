@@ -102,7 +102,9 @@ class MainController extends AbstractController
                 'online'      => $server->getOnline(),
                 'info'        => $info,
                 'status'      => $status,
-                'sort'        => empty($info['Players']) ? 0 : (int) $info['Players']
+                'connections' => is_null($info['Players']) || $info['Players'] < 0 || is_null($info['Bots']) || $info['Bots'] < 0
+                                 ? 0
+                                 : (int) $info['Players'] - (int) $info['Bots']
             ];
         }
 
@@ -110,7 +112,7 @@ class MainController extends AbstractController
         array_multisort(
             array_column(
                 $servers,
-                'sort'
+                'connections'
             ),
             SORT_DESC,
             $servers

@@ -175,7 +175,10 @@ class ServerController extends AbstractController
                     'session'     => $session,
                     'online'      => $online,
                     'players'     => $players,
-                    'status'      => $status
+                    'status'      => $status,
+                    'connections' => is_null($info['Players']) || $info['Players'] < 0 || is_null($info['Bots']) || $info['Bots'] < 0
+                                     ? 0
+                                     : (int) $info['Players'] - (int) $info['Bots']
                 ]
             ]
         );

@@ -70,8 +70,17 @@
             <table>
                 {% for key, value in server.info %}
                     <tr>
-                        <td class="text-align-left">{{ key }}</td>
-                        <td class="text-align-left">{{ value }}</td>
+                        <td class="text-align-left">
+                            {{ key }}
+                        </td>
+                        <td class="text-align-left">
+                            {# let's show real connections for players {{ value }} #}
+                            {% if key == 'Players' %}
+                                {{ server.connections }}
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
