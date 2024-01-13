@@ -103,7 +103,7 @@ class MainController extends AbstractController
                 'online'      => $server->getOnline(),
                 'info'        => $info,
                 'status'      => $status,
-                'connections' => is_null($info['Players']) || $info['Players'] < 0 || is_null($info['Bots']) || $info['Bots'] < 0
+                'connections' => empty($info['Players']) || $info['Players'] < 0 || empty($info['Bots']) || $info['Bots'] < 0
                                  ? 0
                                  : (int) $info['Players'] - (int) $info['Bots']
             ];
