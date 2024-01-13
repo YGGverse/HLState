@@ -74,8 +74,24 @@ class ServerController extends AbstractController
         // Init defaults
         $info    = [];
         $session = [];
-        $online  = [];
-        $players = [];
+
+        // Get online
+        $online = $entityManagerInterface->getRepository(Online::class)->findBy(
+            [
+                'crc32server' => $server->getCrc32server()
+            ],
+            'online' == $request->get('sort') ? [$field => $order] : ['time' => 'DESC'],
+            10
+        );
+
+        // Get players
+        $players = $entityManagerInterface->getRepository(Player::class)->findBy(
+            [
+                'crc32server' => $server->getCrc32server()
+            ],
+            'players' == $request->get('sort') ? [$field => $order] : ['frags' => 'DESC'],
+            10
+        );
 
         // Format address
         if (false === filter_var($server->getHost(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6))
@@ -117,24 +133,6 @@ class ServerController extends AbstractController
                             $session
                         );
                     }
-
-                    // Get online
-                    $online = $entityManagerInterface->getRepository(Online::class)->findBy(
-                        [
-                            'crc32server' => $server->getCrc32server()
-                        ],
-                        'online' == $request->get('sort') ? [$field => $order] : ['time' => 'DESC'],
-                        10
-                    );
-
-                    // Get players
-                    $players = $entityManagerInterface->getRepository(Player::class)->findBy(
-                        [
-                            'crc32server' => $server->getCrc32server()
-                        ],
-                        'players' == $request->get('sort') ? [$field => $order] : ['frags' => 'DESC'],
-                        10
-                    );
                 }
 
                 $status = true;
