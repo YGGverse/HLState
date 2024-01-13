@@ -6,6 +6,7 @@ twig:
             name: '%app.name%'
             theme: '%app.theme%'
             masters: '%app.masters%'
+            links: '%app.links%'
             meta:
                 title: '%env(APP_META_TITLE)%'
                 description: '%env(APP_META_DESCRIPTION)%'

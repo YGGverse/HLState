@@ -8,6 +8,7 @@ parameters:
     app.name: '%env(APP_NAME)%'
     app.theme: '%env(APP_THEME)%'
     app.masters: '%env(APP_MASTERS)%'
+    app.links: '%env(APP_LINKS)%'
     app.meta.title: '%env(APP_META_TITLE)%'
     app.meta.description: '%env(APP_META_DESCRIPTION)%'
     app.meta.keywords: '%env(APP_META_KEYWORDS)%'

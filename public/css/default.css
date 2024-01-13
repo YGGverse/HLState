@@ -75,19 +75,8 @@ header
     display: block;
     margin: 16px auto;
     max-width: var(--container-max-width);
+    overflow: hidden;
     position: relative;
-}
-
-header > h1
-{
-    padding-right: 32px;
-}
-
-header > a:first-child
-{
-    position: absolute;
-    top: -2px;
-    right: 4px;
 }
 
 main
