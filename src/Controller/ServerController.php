@@ -169,6 +169,7 @@ class ServerController extends AbstractController
                 [
                     'address'     => $address,
                     'crc32server' => $server->getCrc32Server(),
+                    'name'        => $server->getName(),
                     'host'        => $server->getHost(),
                     'port'        => $server->getPort(),
                     'info'        => $info,

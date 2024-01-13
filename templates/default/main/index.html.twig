@@ -31,7 +31,15 @@
                             </span>
                         {% endif %}
                     </td>
-                    <td class="text-align-left">{{ server.info.HostName }}</td>
+                    <td class="text-align-left">
+                        {% if server.name %}
+                            {{ server.name }}
+                        {% elseif server.info.HostName %}
+                            {{ server.info.HostName }}
+                        {% else %}
+                            #{{ server.crc32server }}
+                        {% endif %}
+                    </td>
                     <td class="text-align-left">{{ server.info.Map }}</td>
                     <td class="text-align-left">{{ server.added | format_date }}</td>
                     <td class="text-align-left">{{ server.online | format_date }}</td>

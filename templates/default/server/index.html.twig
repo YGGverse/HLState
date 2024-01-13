@@ -45,7 +45,7 @@
 {% endmacro %}
 {% from _self import sort %}
 {% extends 'default/layout.html.twig' %}
-{% block head_title_content %}{% if server.info.HostName is defined %}{{ server.info.HostName }}{% else %}#{{ server.crc32server }}{% endif %} - {{ app.name }}{% endblock %}
+{% block head_title_content %}{% if server.name %}{{ server.name }}{% else %}#{{ server.crc32server }}{% endif %} - {{ app.name }}{% endblock %}
 {% block main_content %}
     <div class="border-default padding-8-px margin-y-8-px">
         <h2>

@@ -32,6 +32,9 @@ class Server
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $port = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Server
     public function setPort(int $port): static
     {
         $this->port = $port;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }

@@ -95,6 +95,7 @@ class MainController extends AbstractController
             // Add server
             $servers[] = [
                 'crc32server' => $server->getCrc32server(),
+                'name'        => $server->getName(),
                 'host'        => $server->getHost(),
                 'port'        => $server->getPort(),
                 'added'       => $server->getAdded(),

@@ -133,27 +133,20 @@ class CrontabController extends AbstractController
         // Collect servers info
         $servers = [];
 
-        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findBy(
-            [
-                'crc32server' => (int) $request->get('crc32server')
-            ],
-            [
-                'id' => 'ASC'
-            ],
-        ) as $server)
+        foreach ((array) $entityManagerInterface->getRepository(Server::class)->findAll() as $server)
         {
             try
             {
-                $query = new \xPaw\SourceQuery\SourceQuery();
+                $node = new \xPaw\SourceQuery\SourceQuery();
 
-                $query->Connect(
+                $node->Connect(
                     false === filter_var($server->getHost(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? $server->getHost() : "[{$server->getHost()}]",
                     $server->port
                 );
 
-                if ($query->Ping())
+                if ($node->Ping())
                 {
-                    if ($info = (array) $query->GetInfo())
+                    if ($info = (array) $node->GetInfo())
                     {
                         // Filter response
                         $bots    = isset($info['Bots']) && $info['Bots'] > 0 ? (int) $info['Bots'] : 0;
@@ -164,6 +157,28 @@ class CrontabController extends AbstractController
                         $crc32server = crc32(
                             $server->host . ':' . $server->port
                         );
+
+                        // Update server name
+                        if (!empty($info['HostName']) && mb_strlen($info['HostName']) < 256)
+                        {
+                            $server->setName(
+                                (string) $info['HostName']
+                            );
+                        }
+
+                        $server->setUpdated(
+                            time()
+                        );
+
+                        $server->setOnline(
+                            time()
+                        );
+
+                        $entityManagerInterface->persist(
+                            $server
+                        );
+
+                        $entityManagerInterface->flush();
 
                         // Get last online value
                         $online = $entityManagerInterface->getRepository(Online::class)->findOneBy(
@@ -219,7 +234,7 @@ class CrontabController extends AbstractController
                         // Update player stats
                         if ($players)
                         {
-                            foreach ((array) $query->GetPlayers() as $session)
+                            foreach ((array) $node->GetPlayers() as $session)
                             {
                                 // Validate fields
                                 if
@@ -329,7 +344,7 @@ class CrontabController extends AbstractController
 
             finally
             {
-                $query->Disconnect();
+                $node->Disconnect();
             }
         }
 
