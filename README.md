@@ -2,7 +2,16 @@
 
 Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler
 
-## Online
+## Features
+
+* Live scrape of each server for online status, active map, players total
+* Game session info: names, frags, time in game, etc
+* Subscription for online updates and players join to server with RSS
+* History keeping in SQLite DB for any charts building
+* New instances crawler based on multiple master nodes
+* Flexible environment settings
+
+## Examples
 
 * `http://94.140.114.89/hl/` - Clearnet
 * `http://[201:5eb5:f061:678e:7565:6338:c02c:5251]/hl/` - Yggdrasil
@@ -22,7 +31,7 @@ Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com
 * `cp .env .env.local`
 * `crontab -e` > `* * * * * /usr/bin/curl --silent http://localhost/crontab/index &> /dev/null`
 
-## Update
+### Update
 
 * `git pull`
 * `git merge`
