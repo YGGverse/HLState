@@ -135,7 +135,11 @@
                 </tr>
                 {% for online in server.online %}
                     <tr>
-                        <td class="text-align-left">{{ online.time | date('r') }}</td>
+                        <td class="text-align-left">
+                            <span title="{{ online.time | date('r') }}">
+                                {{ online.time | format_ago }}
+                            </span>
+                        </td>
                         <td class="text-align-center">{{ online.players }}</td>
                         <td class="text-align-center">{{ online.bots }}</td>
                         <td class="text-align-center">{{ online.total }}</td>
@@ -170,8 +174,16 @@
                     <tr>
                         <td class="text-align-center">{{ player.frags }}</td>
                         <td class="text-align-left">{{ player.name }}</td>
-                        <td class="text-align-left">{{ player.joined | format_date }}</td>
-                        <td class="text-align-left">{{ player.online | format_date }}</td>
+                        <td class="text-align-left">
+                            <span title="{{ player.joined | date('r') }}">
+                                {{ player.joined | format_ago }}
+                            </span>
+                        </td>
+                        <td class="text-align-left">
+                            <span title="{{ player.online | date('r') }}">
+                                {{ player.online | format_ago }}
+                            </span>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>

@@ -41,8 +41,16 @@
                         {% endif %}
                     </td>
                     <td class="text-align-left">{{ server.info.Map }}</td>
-                    <td class="text-align-left">{{ server.added | format_date }}</td>
-                    <td class="text-align-left">{{ server.online | format_date }}</td>
+                    <td class="text-align-left">
+                        <span title="{{ server.added | date('r') }}">
+                            {{ server.added | format_ago }}
+                        </span>
+                    </td>
+                    <td class="text-align-left">
+                        <span title="{{ server.online | date('r') }}">
+                            {{ server.online | format_ago }}
+                        </span>
+                    </td>
                     <td class="text-align-center">{{ server.connections }}{#{{ server.info.Players }}#}</td>
                     <td class="text-align-center">{{ server.info.MaxPlayers }}</td>
                     <td class="text-align-center">{{ server.info.Bots }}</td>
