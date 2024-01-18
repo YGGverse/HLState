@@ -167,7 +167,7 @@
                         <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12"/>
                     </svg>
                 {% endif %}
-                {% if request.get('sort') != 'online' or request.get('page') < server.pagination.online %}
+                {% if server.pagination.online > 1 and (request.get('sort') != 'online' or server.pagination.online > request.get('page')) %}
                     <a rel="nofollow" href="{{
                         path(
                             'server_index',
@@ -251,7 +251,7 @@
                         <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12"/>
                     </svg>
                 {% endif %}
-                {% if request.get('sort') != 'players' or request.get('page') < server.pagination.players %}
+                {% if server.pagination.players > 1 and (request.get('sort') != 'players' or server.pagination.players > request.get('page')) %}
                     <a rel="nofollow" href="{{
                         path(
                             'server_index',
