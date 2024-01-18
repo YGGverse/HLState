@@ -59,5 +59,6 @@ Please create new branch from main before make PR
 
 ## See also
 
+* [Xash3D FWGS builds for Yggdrasil](https://github.com/YGGverse/xash3d-fwgs/releases)
 * [half-life-server](https://github.com/YGGverse/half-life-server) - Half-Life server edition by YGGverse
 * [pymaster](https://github.com/YGGverse/pymaster) - Refactored master server written in Python
