@@ -44,7 +44,7 @@
         "twig/extra-bundle": "^3.8",
         "twig/intl-extra": "^3.8",
         "twig/twig": "^3.8",
-        "xpaw/php-source-query-class": "^2.1",
+        "xpaw/php-source-query-class": "dev-master",
         "yggverse/hl": "^1.0"
     },
     "config": {
