@@ -1,4 +1,4 @@
-# HLState
+# HLState <img align="right" width="128" height="128" src="https://github.com/YGGverse/HLState/blob/main/public/mstile-150x150.png?raw=true" alt="HLState" />
 
 Web Monitor for Half-Life based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler
 
