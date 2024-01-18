@@ -160,18 +160,18 @@
                         {{ 'Name' | trans }} {{ sort(request, server.crc32server, 'players', 'name') }}
                     </th>
                     <th class="text-align-left">
-                        {{ 'Online' | trans }} {{ sort(request, server.crc32server, 'players', 'online') }}
+                        {{ 'Joined' | trans }} {{ sort(request, server.crc32server, 'players', 'joined') }}
                     </th>
                     <th class="text-align-left">
-                        {{ 'Joined' | trans }} {{ sort(request, server.crc32server, 'players', 'joined') }}
+                        {{ 'Online' | trans }} {{ sort(request, server.crc32server, 'players', 'online') }}
                     </th>
                 </tr>
                 {% for player in server.players %}
                     <tr>
                         <td class="text-align-center">{{ player.frags }}</td>
                         <td class="text-align-left">{{ player.name }}</td>
-                        <td class="text-align-left">{{ player.online | format_date }}</td>
                         <td class="text-align-left">{{ player.joined | format_date }}</td>
+                        <td class="text-align-left">{{ player.online | format_date }}</td>
                     </tr>
                 {% endfor %}
             </table>
