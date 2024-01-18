@@ -1,8 +1,6 @@
 # HLState <img align="right" width="128" height="128" src="https://github.com/YGGverse/HLState/blob/main/public/mstile-150x150.png?raw=true" alt="HLState" />
 
-Web Monitor for Half-Life based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler
-
-![HLState](https://github.com/YGGverse/HLState/assets/108541346/e8559edf-8429-496e-afbb-752a822cd3d6)
+Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler
 
 ## Install
 
