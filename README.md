@@ -2,6 +2,12 @@
 
 Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler
 
+## Online
+
+* `http://94.140.114.89/hl/` - Clearnet
+* `http://[201:5eb5:f061:678e:7565:6338:c02c:5251]/hl/` - Yggdrasil
+* `http://hl.ygg` - Alfis DNS
+
 ## Install
 
 * `apt install git composer curl php php-xml php-intl php-mbstring php-curl php-sqlite3`
