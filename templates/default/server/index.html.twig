@@ -257,7 +257,7 @@
                             'server_index',
                             {
                                 sort : 'players',
-                                field : request.get('sort') == 'players' and request.get('field') ? request.get('field') : 'time',
+                                field : request.get('sort') == 'players' and request.get('field') ? request.get('field') : 'frags',
                                 order : request.get('sort') == 'players' and request.get('order') ? request.get('order') : 'desc',
                                 page : (request.get('sort') == 'players' and request.get('page')  ? request.get('page') : 1) + 1,
                                 crc32server : server.crc32server,
