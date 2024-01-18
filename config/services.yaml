@@ -12,6 +12,8 @@ parameters:
     app.meta.title: '%env(APP_META_TITLE)%'
     app.meta.description: '%env(APP_META_DESCRIPTION)%'
     app.meta.keywords: '%env(APP_META_KEYWORDS)%'
+    app.server.online.limit: '%env(APP_SERVER_ONLINE_LIMIT)%'
+    app.server.players.limit: '%env(APP_SERVER_PLAYERS_LIMIT)%'
 
 services:
     # default configuration for services in *this* file

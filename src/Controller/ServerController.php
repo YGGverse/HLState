@@ -81,7 +81,7 @@ class ServerController extends AbstractController
                 'crc32server' => $server->getCrc32server()
             ],
             'online' == $request->get('sort') ? [$field => $order] : ['time' => 'DESC'],
-            10
+            $this->getParameter('app.server.online.limit')
         );
 
         // Get players
@@ -90,7 +90,7 @@ class ServerController extends AbstractController
                 'crc32server' => $server->getCrc32server()
             ],
             'players' == $request->get('sort') ? [$field => $order] : ['frags' => 'DESC'],
-            10
+            $this->getParameter('app.server.players.limit')
         );
 
         // Format address
