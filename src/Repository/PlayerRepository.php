@@ -20,4 +20,17 @@ class PlayerRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Player::class);
     }
+
+    public function getTotalByCrc32server(
+        int $crc32server
+    ): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->where('p.crc32server = :crc32server')
+            ->setParameter('crc32server', $crc32server)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

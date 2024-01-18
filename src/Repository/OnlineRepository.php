@@ -20,4 +20,17 @@ class OnlineRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Online::class);
     }
+
+    public function getTotalByCrc32server(
+        int $crc32server
+    ): int
+    {
+        return $this->createQueryBuilder('o')
+            ->select('count(o.id)')
+            ->where('o.crc32server = :crc32server')
+            ->setParameter('crc32server', $crc32server)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

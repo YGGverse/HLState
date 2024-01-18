@@ -45,30 +45,15 @@ class ServerController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        // Prepare request
-        if ('online' == $request->get('sort') && in_array($request->get('field'), ['time','players','bots','total']))
+        // Prepare page request
+        if ($request->get('page') && (int) $request->get('page') > 1)
         {
-            $field = $request->get('field');
-        }
-
-        else if ('players' == $request->get('sort') && in_array($request->get('field'), ['name','frags','joined','online']))
-        {
-            $field = $request->get('field');
+            $page = (int) $request->get('page');
         }
 
         else
         {
-            $field = 'time';
-        }
-
-        if (in_array($request->get('order'), ['asc','desc']))
-        {
-            $order = $request->get('order');
-        }
-
-        else
-        {
-            $order = 'desc';
+            $page = 1;
         }
 
         // Init defaults
@@ -80,8 +65,12 @@ class ServerController extends AbstractController
             [
                 'crc32server' => $server->getCrc32server()
             ],
-            'online' == $request->get('sort') ? [$field => $order] : ['time' => 'DESC'],
-            $this->getParameter('app.server.online.limit')
+            [
+                'online' == $request->get('sort') && in_array($request->get('field'), ['time','players','bots','total'])
+                ? $request->get('field') : 'time' => in_array($request->get('order'), ['asc','desc']) ? $request->get('order') : 'desc',
+            ],
+            $this->getParameter('app.server.online.limit'),
+            'online' == $request->get('sort') ? ($page - 1) * $this->getParameter('app.server.online.limit') : 0
         );
 
         // Get players
@@ -89,8 +78,12 @@ class ServerController extends AbstractController
             [
                 'crc32server' => $server->getCrc32server()
             ],
-            'players' == $request->get('sort') ? [$field => $order] : ['frags' => 'DESC'],
-            $this->getParameter('app.server.players.limit')
+            [
+                'players' == $request->get('sort') && in_array($request->get('field'), ['name','frags','joined','online'])
+                ? $request->get('field') : 'frags' => in_array($request->get('order'), ['asc','desc']) ? $request->get('order') : 'desc',
+            ],
+            $this->getParameter('app.server.players.limit'),
+            'players' == $request->get('sort') ? ($page - 1) * $this->getParameter('app.server.players.limit') : 0
         );
 
         // Format address
@@ -175,6 +168,19 @@ class ServerController extends AbstractController
                     'online'      => $online,
                     'players'     => $players,
                     'status'      => $status,
+                    'pagination'  =>
+                    [
+                        'players' => ceil(
+                            $entityManagerInterface->getRepository(Player::class)->getTotalByCrc32server(
+                                $server->getCrc32server()
+                            ) / $this->getParameter('app.server.players.limit')
+                        ),
+                        'online'  => ceil(
+                            $entityManagerInterface->getRepository(Online::class)->getTotalByCrc32server(
+                                $server->getCrc32server()
+                            ) / $this->getParameter('app.server.online.limit')
+                        )
+                    ],
                     'connections' => empty($info['Players']) || $info['Players'] < 0 || empty($info['Bots']) || $info['Bots'] < 0
                                      ? 0
                                      : (int) $info['Players'] - (int) $info['Bots']

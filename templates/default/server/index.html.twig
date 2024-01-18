@@ -146,6 +146,49 @@
                     </tr>
                 {% endfor %}
             </table>
+            <div class="padding-y-8-px">
+                {% if request.get('sort') == 'online' and request.get('page') > 1 %}
+                    <a rel="nofollow" href="{{
+                        path(
+                            'server_index',
+                            {
+                                sort : 'online',
+                                field : request.get('field') ? request.get('field') : 'frags',
+                                order : request.get('order') ? request.get('order') : 'desc',
+                                page : request.get('page') ? request.get('page') - 1 : 1,
+                                crc32server : server.crc32server,
+                                '_fragment' : 'online'
+                            }
+                        ) }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-left-square-fill" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12"/>
+                    </svg></a>
+                {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-left-square-fill" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12"/>
+                    </svg>
+                {% endif %}
+                {% if request.get('sort') != 'online' or request.get('page') < server.pagination.online %}
+                    <a rel="nofollow" href="{{
+                        path(
+                            'server_index',
+                            {
+                                sort : 'online',
+                                field : request.get('sort') == 'online' and request.get('field') ? request.get('field') : 'time',
+                                order : request.get('sort') == 'online' and request.get('order') ? request.get('order') : 'desc',
+                                page : (request.get('sort') == 'online' and request.get('page')  ? request.get('page') : 1) + 1,
+                                crc32server : server.crc32server,
+                                '_fragment' : 'online'
+                            }
+                        ) }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z"/>
+                    </svg></a>
+                {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z"/>
+                    </svg>
+                {% endif %}
+                {{ 'page' | trans }} {{ request.get('sort') == 'online' and request.get('page') ? request.get('page') : 1 }}/{{ server.pagination.online }}
+            </div>
         {% endif %}
         {% if server.players %}
             <a name="players"></a>
@@ -187,6 +230,49 @@
                     </tr>
                 {% endfor %}
             </table>
+            <div class="padding-y-8-px">
+                {% if request.get('sort') == 'players' and request.get('page') > 1 %}
+                    <a rel="nofollow" href="{{
+                        path(
+                            'server_index',
+                            {
+                                sort : 'players',
+                                field : request.get('field') ? request.get('field') : 'frags',
+                                order : request.get('order') ? request.get('order') : 'desc',
+                                page : request.get('page') ? request.get('page') - 1 : 1,
+                                crc32server : server.crc32server,
+                                '_fragment' : 'players'
+                            }
+                        ) }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-left-square-fill" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12"/>
+                    </svg></a>
+                {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-caret-left-square-fill" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12"/>
+                    </svg>
+                {% endif %}
+                {% if request.get('sort') != 'players' or request.get('page') < server.pagination.players %}
+                    <a rel="nofollow" href="{{
+                        path(
+                            'server_index',
+                            {
+                                sort : 'players',
+                                field : request.get('sort') == 'players' and request.get('field') ? request.get('field') : 'time',
+                                order : request.get('sort') == 'players' and request.get('order') ? request.get('order') : 'desc',
+                                page : (request.get('sort') == 'players' and request.get('page')  ? request.get('page') : 1) + 1,
+                                crc32server : server.crc32server,
+                                '_fragment' : 'players'
+                            }
+                        ) }}"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z"/>
+                    </svg></a>
+                {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm5.5 10a.5.5 0 0 0 .832.374l4.5-4a.5.5 0 0 0 0-.748l-4.5-4A.5.5 0 0 0 5.5 4z"/>
+                    </svg>
+                {% endif %}
+                {{ 'page' | trans }} {{ request.get('sort') == 'players' and request.get('page') ? request.get('page') : 1 }}/{{ server.pagination.online }}
+            </div>
         {% endif %}
     </div>
 {% endblock %}
