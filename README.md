@@ -1,4 +1,4 @@
-# HLState <img align="right" width="56" height="56" src="https://github.com/YGGverse/hl-customs/blob/main/icon/128/hl-icon-yggdrasil.png?raw=true" alt="HLState" />
+# HLState <img align="right" width="56" height="56" src="https://github.com/YGGverse/hl-customs/blob/main/icons/yggdrasil/128x128.png?raw=true" alt="HLState" />
 
 Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler.
 
