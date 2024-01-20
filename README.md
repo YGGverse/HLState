@@ -1,6 +1,8 @@
-# HLState <img align="right" width="128" height="128" src="https://github.com/YGGverse/HLState/blob/main/public/mstile-150x150.png?raw=true" alt="HLState" />
+# HLState <img align="right" width="56" height="56" src="https://github.com/YGGverse/hl-customs/blob/main/icon/128/hl-icon-yggdrasil.png?raw=true" alt="HLState" />
 
-Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler
+Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler.
+
+Project initially written to explore [Yggdrasil](https://github.com/yggdrasil-network) servers, but compatible for any other network
 
 ## Features
 
@@ -73,5 +75,6 @@ Please create new branch from main before make PR
 ## See also
 
 * [Xash3D FWGS builds for Yggdrasil](https://github.com/YGGverse/xash3d-fwgs/releases)
-* [half-life-server](https://github.com/YGGverse/half-life-server) - Half-Life server edition by YGGverse
+* [hl-customs](https://github.com/YGGverse/hl-customs) - Media resources for Half-Life customization
+* [hl-server](https://github.com/YGGverse/hl-server) - Half-Life server edition by YGGverse
 * [pymaster](https://github.com/YGGverse/pymaster) - Refactored master server written in Python
