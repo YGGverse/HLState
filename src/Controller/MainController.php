@@ -27,9 +27,18 @@ class MainController extends AbstractController
     )]
     public function index(
         ?Request $request,
+        TranslatorInterface $translatorInterface,
         EntityManagerInterface $entityManagerInterface
     ): Response
     {
+        // Init memory
+        $memory = new \Yggverse\Cache\Memory(
+            $this->getParameter('app.memcached.host'),
+            $this->getParameter('app.memcached.port'),
+            $this->getParameter('app.memcached.namespace'),
+            $this->getParameter('app.memcached.timeout') + time(),
+        );
+
         // Collect servers info
         $servers = [];
 
@@ -119,11 +128,111 @@ class MainController extends AbstractController
             $servers
         );
 
+        // Online calendar
+        $time = time();
+
+        $month = new \Yggverse\Graph\Calendar\Month($time);
+
+        foreach ($month->getNodes() as $day => $node)
+        {
+            // Skip future days processing
+            if ($day > date('j'))
+            {
+                break;
+            }
+
+            // Add daily stats
+            $total = $memory->getByMethodCallback(
+                $entityManagerInterface->getRepository(Online::class),
+                'getMaxPlayersByTimeInterval',
+                [
+                    strtotime(
+                        sprintf(
+                            '%s-%s-%s 00:00',
+                            date('Y', $time),
+                            date('n', $time),
+                            $day
+                        )
+                    ),
+                    strtotime(
+                        '+1 day',
+                        strtotime(
+                            sprintf(
+                                '%s-%s-%s 00:00',
+                                date('Y', $time),
+                                date('n', $time),
+                                $day
+                            )
+                        )
+                    )
+                ],
+                time() + ($day == date('j') ? 60 : 2592000)
+            );
+
+            $month->addNode(
+                $day,
+                $total,
+                sprintf(
+                    $translatorInterface->trans('online %d'),
+                    $total
+                ),
+                null,
+                0
+            );
+
+            // Add hourly stats
+            for ($hour = 0; $hour < 24; $hour++)
+            {
+                $total = $memory->getByMethodCallback(
+                    $entityManagerInterface->getRepository(Online::class),
+                    'getMaxPlayersByTimeInterval',
+                    [
+                        strtotime(
+                            sprintf(
+                                '%s-%s-%s %s:00',
+                                date('Y', $time),
+                                date('n', $time),
+                                $day,
+                                $hour
+                            )
+                        ),
+                        strtotime(
+                            sprintf(
+                                '%s-%s-%s %s:00',
+                                date('Y', $time),
+                                date('n', $time),
+                                $day,
+                                $hour + 1
+                            )
+                        )
+                    ],
+                    time() + ($day == date('j') ? 60 : 2592000)
+                );
+
+                $month->addNode(
+                    $day,
+                    $total,
+                    sprintf(
+                        $translatorInterface->trans('%s:00-%s:00 online %s'),
+                        $hour,
+                        $hour + 1,
+                        $total
+                    ),
+                    'background-color-default',
+                    1
+                );
+            }
+        }
+
         return $this->render(
             'default/main/index.html.twig',
             [
                 'request' => $request,
-                'servers' => $servers
+                'servers' => $servers,
+                'month'   =>
+                [
+                    'online'  => (array) $month->getNodes()
+                ]
             ]
         );
     }

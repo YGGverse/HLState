@@ -91,4 +91,35 @@
             </tr>
         {% endif %}
     </table>
+    <br />
+    <h2>{{ 'now' | date('M, Y') }}</h2>
+    <hr />
+    <div class="padding-y-8-px calendar__month">
+        {% for day, node in month.online %}
+            {% if day <= 'now' | date('j') %}
+                <div class="day">
+                    <div class="number">
+                        {{ day }}
+                    </div>
+                    {% for i, layers in node %}
+                        <div class="layer layer-{{ i }}">
+                            <div class="label">
+                                {% for layer in layers %}
+                                    <div{# class="{{ layer.class }}"#}>
+                                        {{ layer.label }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% for layer in layers %}
+                                <div title="{{ layer.label }}"
+                                     class="value {{ layer.class }}"
+                                     style="width:{{ layer.width }}%;height:{{ layer.height }}%;left:{{ layer.offset }}%"></div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <hr />
 {% endblock %}

@@ -16,6 +16,8 @@
     --color-warning: #f37b21;
     --color-error: #ff6363;
     --color-default: #999;
+
+    --background-color-hover-default: rgba(125, 125, 125, 0.1);
 }
 
 *::placeholder
@@ -63,6 +65,10 @@ table td
 {
     border: 1px solid var(--color-default);
     padding: 4px;
+}
+
+table tr:hover td {
+    background-color: var(--background-color-hover-default);
 }
 
 ul
@@ -143,6 +149,26 @@ a.color-default:visited
     color: var(--color-default);
 }
 
+.background-color-success
+{
+    background-color: var(--color-success);
+}
+
+.background-color-warning
+{
+    background-color: var(--color-warning);
+}
+
+.background-color-error
+{
+    background-color: var(--color-error);
+}
+
+.background-color-default
+{
+    background-color: var(--color-default);
+}
+
 .text-align-left
 {
     text-align: left;
@@ -188,4 +214,84 @@ a.color-default:visited
 {
     margin-bottom: 8px;
     margin-top: 8px;
+}
+
+/*
+ * yggverse/graph UI
+ *
+ * for any feedback visit official page:
+ * https://github.com/YGGverse/graph-php
+ *
+ */
+
+.calendar__month {
+    overflow: hidden
+}
+
+.calendar__month > .day {
+    float: left;
+    height: 96px;
+    margin: 2px 0;
+    position: relative;
+    width: 14.285714286%;
+}
+
+.calendar__month > .day:hover {
+    background-color: var(--background-color-hover-default);
+}
+
+.calendar__month > .day > .number {
+    background-color: var(--background-color-hover-default);
+    border-radius: 50%;
+    font-size: 10px;
+    height: 16px;
+    left: 4px;
+    line-height: 16px;
+    opacity: 0.8;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+    width: 16px;
+    z-index: 99;
+}
+
+.calendar__month > .day:hover > .number {
+    opacity: 1;
+}
+
+.calendar__month > .day > .layer-0 > .label {
+    background-color: var(--background-color-hover-default);
+    border-radius: 3px;
+    display: none;
+    font-size: 10px;
+    padding: 0 4px;
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    z-index: 99;
+}
+
+.calendar__month > .day:hover > .layer-0 > .label {
+    display: block;
+}
+
+.calendar__month > .day > .layer-0 > .value {
+    bottom: 0;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 0;
+}
+
+.calendar__month > .day > .layer-1 > .label {
+    display: none
+}
+
+.calendar__month > .day > .layer-1 > .value {
+    bottom: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.calendar__month > .day > .layer-1 > .value:hover {
+    opacity: .8;
 }

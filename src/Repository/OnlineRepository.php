@@ -25,12 +25,27 @@ class OnlineRepository extends ServiceEntityRepository
         int $crc32server
     ): int
     {
-        return $this->createQueryBuilder('o')
-            ->select('count(o.id)')
-            ->where('o.crc32server = :crc32server')
-            ->setParameter('crc32server', $crc32server)
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
+        return
+        $this->createQueryBuilder('o')
+             ->select('count(o.id)')
+             ->where('o.crc32server = :crc32server')
+             ->setParameter('crc32server', $crc32server)
+             ->getQuery()
+             ->getSingleScalarResult();
+    }
+
+    public function getMaxPlayersByTimeInterval(
+        int $from,
+        int $to
+    ): int
+    {
+        return (int)
+        $this->createQueryBuilder('o')
+             ->select('max(o.players)')
+             ->where('o.time >= :from AND o.time <= :to')
+             ->setParameter('from', $from)
+             ->setParameter('to', $to)
+             ->getQuery()
+             ->getSingleScalarResult();
     }
 }

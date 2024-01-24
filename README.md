@@ -21,7 +21,7 @@ Project initially written to explore [Yggdrasil](https://github.com/yggdrasil-ne
 
 ## Install
 
-* `apt install git composer curl php php-xml php-intl php-mbstring php-curl php-sqlite3`
+* `apt install git composer curl memcached php php-xml php-intl php-mbstring php-curl php-sqlite3 php-memcached`
 * `git clone https://github.com/YGGverse/HLState.git`
 * `cd HLState`
 * `composer install`
@@ -62,6 +62,8 @@ Please create new branch from main before make PR
 * [SVG icons](https://icons.getbootstrap.com)
 * [PHP Source Query](https://github.com/xPaw/PHP-Source-Query)
 * [HL-PHP](https://github.com/YGGverse/hl-php)
+* [JS-less Graphs PHP](https://github.com/YGGverse/graph-php)
+* [Memcached API for PHP](https://github.com/YGGverse/cache-php)
 * [Favicons](https://realfavicongenerator.net)
 
 ## Support
