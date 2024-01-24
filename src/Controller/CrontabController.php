@@ -141,7 +141,8 @@ class CrontabController extends AbstractController
 
                 $node->Connect(
                     false === filter_var($server->getHost(), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? $server->getHost() : "[{$server->getHost()}]",
-                    $server->getPort()
+                    $server->getPort(),
+                    1
                 );
 
                 if ($node->Ping())
