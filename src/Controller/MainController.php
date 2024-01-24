@@ -213,9 +213,10 @@ class MainController extends AbstractController
                     $day,
                     $total,
                     sprintf(
-                        $translatorInterface->trans('%s:00-%s:00 online %s'),
+                        $translatorInterface->trans('%s:00-%s:00 %s online %s'),
                         $hour,
                         $hour + 1,
+                        date('e'),
                         $total
                     ),
                     'background-color-default',
