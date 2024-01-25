@@ -64,7 +64,6 @@ Please create new branch from main before make PR
 * [HL-PHP](https://github.com/YGGverse/hl-php)
 * [JS-less Graphs PHP](https://github.com/YGGverse/graph-php)
 * [Memcached API for PHP](https://github.com/YGGverse/cache-php)
-* [Favicons](https://realfavicongenerator.net)
 
 ## Support
 
