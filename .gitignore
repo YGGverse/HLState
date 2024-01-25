@@ -19,3 +19,7 @@
 ###< symfony/phpunit-bridge ###
 
 /composer.lock
+
+/public/*
+!/public/css/default.css
+!/public/index.php
