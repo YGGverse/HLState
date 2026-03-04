@@ -65,7 +65,7 @@ class CrontabController extends AbstractController
             // Connect master node
             $node = new \Yggverse\Hl\Xash3D\Master($host, $port, 1);
 
-            foreach ((array) $node->getServers(100, "\xFF", "[::]", 0) as $key => $value) // @TODO IPv4 thread
+            foreach ((array) $node->getServers(100, "[::]") as $key => $value) // @TODO IPv4 thread
             {
                 // Generate server identity
                 $crc32server = crc32(
