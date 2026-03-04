@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb4aee1f40c785f180e92be5337abfbf",
+    "content-hash": "6ca8b9071e80a24f43bed8510e75d189",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -8067,18 +8067,19 @@
         },
         {
             "name": "yggverse/hl",
-            "version": "1.0.4",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/YGGverse/hl-php.git",
-                "reference": "4f8fffed17d485f8c567ee5651863d3e8f473998"
+                "reference": "82c8564645da6193710d1c1fd26e8af5f9971396"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YGGverse/hl-php/zipball/4f8fffed17d485f8c567ee5651863d3e8f473998",
-                "reference": "4f8fffed17d485f8c567ee5651863d3e8f473998",
+                "url": "https://api.github.com/repos/YGGverse/hl-php/zipball/82c8564645da6193710d1c1fd26e8af5f9971396",
+                "reference": "82c8564645da6193710d1c1fd26e8af5f9971396",
                 "shasum": ""
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -8106,9 +8107,9 @@
             ],
             "support": {
                 "issues": "https://github.com/YGGverse/hl-php/issues",
-                "source": "https://github.com/YGGverse/hl-php/tree/1.0.4"
+                "source": "https://github.com/YGGverse/hl-php/tree/main"
             },
-            "time": "2024-01-13T18:03:23+00:00"
+            "time": "2026-03-04T18:50:03+00:00"
         }
     ],
     "packages-dev": [
@@ -10472,7 +10473,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "xpaw/php-source-query-class": 20
+        "xpaw/php-source-query-class": 20,
+        "yggverse/hl": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
