@@ -48,13 +48,17 @@ class CrontabController extends AbstractController
         // Get new servers from masters
         foreach ((array) explode(',', $this->getParameter('app.masters')) as $master)
         {
-            if (!$host = parse_url($master, PHP_URL_HOST)) // @TODO IPv6 https://bugs.php.net/bug.php?id=72811
+            $master_url = "udp://" . ltrim($master, "udp://"); // @TODO IPv6 https://bugs.php.net/bug.php?id=72811
+
+            if (!$host = parse_url($master_url, PHP_URL_HOST))
             {
+                print("Could not parse host from " . $master); // @TODO handle
                 continue;
             }
 
-            if (!$port = parse_url($master, PHP_URL_PORT))
+            if (!$port = parse_url($master_url, PHP_URL_PORT))
             {
+                print("Could not parse port from " . $master); // @TODO handle
                 continue;
             }
 
