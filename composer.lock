@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ca8b9071e80a24f43bed8510e75d189",
+    "content-hash": "030679f552443dcfef2e9ba4dc7a9dcd",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -7942,27 +7942,26 @@
         },
         {
             "name": "xpaw/php-source-query-class",
-            "version": "dev-master",
+            "version": "6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xPaw/PHP-Source-Query.git",
-                "reference": "8261129fba10fae3166e9a7084e5c0f2e6b9d4dd"
+                "reference": "fe854e0e582b3da4261034bbc0f1e9b1e5e5bd73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xPaw/PHP-Source-Query/zipball/8261129fba10fae3166e9a7084e5c0f2e6b9d4dd",
-                "reference": "8261129fba10fae3166e9a7084e5c0f2e6b9d4dd",
+                "url": "https://api.github.com/repos/xPaw/PHP-Source-Query/zipball/fe854e0e582b3da4261034bbc0f1e9b1e5e5bd73",
+                "reference": "fe854e0e582b3da4261034bbc0f1e9b1e5e5bd73",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.3"
+                "php": ">=8.2"
             },
             "require-dev": {
                 "phpstan/phpstan": "^2.0",
                 "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^12.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -7987,7 +7986,7 @@
                 "team fortress"
             ],
             "support": {
-                "source": "https://github.com/xPaw/PHP-Source-Query/tree/master"
+                "source": "https://github.com/xPaw/PHP-Source-Query/tree/6.0.0"
             },
             "funding": [
                 {
@@ -7995,7 +7994,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-29T10:56:58+00:00"
+            "time": "2026-01-29T10:35:30+00:00"
         },
         {
             "name": "yggverse/cache",
@@ -10473,7 +10472,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "xpaw/php-source-query-class": 20,
         "yggverse/hl": 20
     },
     "prefer-stable": true,
