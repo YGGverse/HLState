@@ -57,7 +57,26 @@ class ServerController extends AbstractController
         }
 
         // Init defaults
-        $info    = [];
+        $status = false;
+
+        $info =
+        [
+            'Protocol'   => null,
+            'HostName'   => null,
+            'Map'        => null,
+            'ModDir'     => null,
+            'ModDesc'    => null,
+            'AppID'      => null,
+            'Players'    => null,
+            'MaxPlayers' => null,
+            'Bots'       => null,
+            'Dedicated'  => null,
+            'Os'         => null,
+            'Password'   => null,
+            'Secure'     => null,
+            'Version'    => null
+        ];
+
         $session = [];
 
         // Get online
