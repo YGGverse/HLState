@@ -34,7 +34,7 @@
                     <td class="text-align-left">
                         {% if server.name %}
                             {{ server.name }}
-                        {% elseif server.info.HostName %}
+                        {% elseif server.info %}
                             {{ server.info.HostName }}
                         {% else %}
                             #{{ server.crc32server }}
