@@ -1,52 +1,25 @@
 <?php
 
-namespace App\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Contracts\Translation\TranslatorInterface;
-
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
+namespace App\Service;
 
 use App\Entity\Online;
 use App\Entity\Player;
 use App\Entity\Server;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Yggverse\HL\Xash3d\Master;
 
-class CrontabController extends AbstractController
+class CrawlerService
 {
-    #[Route(
-        '/crontab/index',
-        name: 'crontab_index',
-        methods:
-        [
-            'GET'
-        ]
-    )]
-    public function index(
-        ?Request $request,
-        TranslatorInterface $translatorInterface,
-        EntityManagerInterface $entityManagerInterface
-    ): Response
+    public function __construct(
+
+    ) {}
+
+    public function crawl(array $masters, EntityManagerInterface $entityManagerInterface): void
     {
-        // Prevent multi-thread execution
-        $semaphore = sem_get(
-            crc32(
-                __DIR__ . '.controller.crontab.index',
-            ), 1
-        );
-
-        if (false === sem_acquire($semaphore, true))
-        {
-            return new Response(
-                $translatorInterface->trans('Process locked by another thread')
-            );
-        }
-
         // Get new servers from masters
-        foreach ((array) explode(',', $this->getParameter('app.masters')) as $master)
+        foreach ($masters as $master)
         {
             $master_url = "udp://" . ltrim($master, "udp://"); // @TODO IPv6 https://bugs.php.net/bug.php?id=72811
 
@@ -347,8 +320,5 @@ class CrontabController extends AbstractController
                 $node->Disconnect();
             }
         }
-
-        // Render response
-        return new Response(); // @TODO
     }
 }

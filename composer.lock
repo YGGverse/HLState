@@ -8070,12 +8070,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/YGGverse/hl-php.git",
-                "reference": "795f3047895a875c35f426c5f9d8649967f7b3db"
+                "reference": "9f4e92459283f6775127f0bba8fad0ed1ce88dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/YGGverse/hl-php/zipball/795f3047895a875c35f426c5f9d8649967f7b3db",
-                "reference": "795f3047895a875c35f426c5f9d8649967f7b3db",
+                "url": "https://api.github.com/repos/YGGverse/hl-php/zipball/9f4e92459283f6775127f0bba8fad0ed1ce88dbf",
+                "reference": "9f4e92459283f6775127f0bba8fad0ed1ce88dbf",
                 "shasum": ""
             },
             "default-branch": true,
@@ -8108,7 +8108,7 @@
                 "issues": "https://github.com/YGGverse/hl-php/issues",
                 "source": "https://github.com/YGGverse/hl-php/tree/main"
             },
-            "time": "2026-03-04T23:08:13+00:00"
+            "time": "2026-03-04T23:11:24+00:00"
         }
     ],
     "packages-dev": [

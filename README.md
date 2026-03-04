@@ -31,46 +31,6 @@ Project initially written to explore [Yggdrasil](https://github.com/yggdrasil-ne
 
 * `chown -R www-data:www-data var`
 * `cp .env .env.local`
-* `crontab -e` > `* * * * * /usr/bin/curl --silent http://localhost/crontab/index &> /dev/null`
-
-#### Nginx
-
-```
-map $request_uri $loggable {
-    ~^/crontab/index  0;
-    default           1;
-}
-
-server {
-    listen [::]:27080;
-
-    server_name hl.ygg ygg.hl.srv;
-
-    access_log /var/log/nginx/hl.access.log combined if=$loggable;
-    error_log /var/log/nginx/hl.error.log warn;
-
-    root /var/www/hlstate/HLState/public;
-
-    index index.php index.html;
-
-    location / {
-        try_files $uri /index.php$is_args$args;
-    }
-    location ~ ^/index\.php(/|$) {
-        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
-        fastcgi_split_path_info ^(.+\.php)(/.*)$;
-        include fastcgi_params;
-
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-        fastcgi_param DOCUMENT_ROOT $realpath_root;
-
-        internal;
-    }
-    location ~ \.php$ {
-        return 404;
-    }
-}
-```
 
 ### Update
 

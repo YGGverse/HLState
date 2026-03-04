@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Online;
+use App\Entity\Player;
+use App\Entity\Server;
+
+use App\Service\CrawlerService;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-
-use App\Entity\Online;
-use App\Entity\Player;
-use App\Entity\Server;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -27,6 +29,7 @@ class MainController extends AbstractController
     )]
     public function index(
         ?Request $request,
+        CrawlerService $crawlerService,
         TranslatorInterface $translatorInterface,
         EntityManagerInterface $entityManagerInterface
     ): Response
@@ -37,6 +40,12 @@ class MainController extends AbstractController
             $this->getParameter('app.memcached.port'),
             $this->getParameter('app.memcached.namespace'),
             $this->getParameter('app.memcached.timeout') + time(),
+        );
+
+        // Run crawler queue
+        $crawlerService->crawl(
+            (array) explode(',', $this->getParameter('app.masters')),
+            $entityManagerInterface
         );
 
         // Collect servers info
