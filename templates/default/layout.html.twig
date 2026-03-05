@@ -50,7 +50,7 @@
                 {% block footer_content %}
                     {% if app.masters %}
                         <small class="float-left">
-                            <strong>{{ 'Master tracker' | trans }}:</strong>
+                            <strong>{{ 'Master' | trans }}:</strong>
                             {% for i, master in app.masters | split(',') %}
                                 {% if i %}&bull;{% endif %} {{ master }}
                             {% endfor %}
