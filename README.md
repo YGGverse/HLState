@@ -2,6 +2,8 @@
 
 Web monitor for Half-Life game servers based on [Xash3D FWGS](https://github.com/FWGS/xash3d-fwgs) masters crawler.
 
+<img width="798" height="360" alt="hlstate" src="https://github.com/user-attachments/assets/b322f0db-5d32-4b5d-80b0-e15efe32cd43" />
+
 Project initially written to explore [Yggdrasil](https://github.com/yggdrasil-network) servers, but compatible with any other network
 
 ## Features
