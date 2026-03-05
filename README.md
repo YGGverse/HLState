@@ -78,3 +78,4 @@ Please create new branch from main before make PR
 * [hl-customs](https://github.com/YGGverse/hl-customs) - Media resources for Half-Life customization
 * [hl-server](https://github.com/YGGverse/hl-server) - Half-Life server edition by YGGverse
 * [pymaster](https://github.com/YGGverse/pymaster) - Refactored master server written in Python
+* [xash3d-master](https://github.com/FWGS/xash3d-master) - Master server for Half-Life/Xash3D (recommended)
